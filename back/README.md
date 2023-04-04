@@ -39,7 +39,7 @@ $ npm run test:cov
 ```
 
 ## Docker
-- se rendre dans `/projet-dev-b3/back`
+- ***se rendre dans `/projet-dev-b3/back`***
 - Allumé docker 
 - Pour build l'image:
 ```
@@ -50,6 +50,12 @@ docker build -t back .
 ```
 docker run --name  back -p 3000:3000 back
 ```
+### A VOIR :
+BDD coherent oui mais dispo ou distribué?
+la fonctionnalité complexe c'est quoi ?
+
+### BIEN VU:
+
 
 ## License
 
