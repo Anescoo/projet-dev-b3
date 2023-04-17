@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { StoreModule } from './store/store.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Store } from './store/entity/store.entity';
-
+import { DataSource } from 'typeorm';
 /**
  * !FIX BDD CONNEXION FOR DEPLOY
  * !la connexion avec une bdd externe marche pas : avec celle de georgio blem de permission et celle de .
@@ -28,4 +28,6 @@ import { Store } from './store/entity/store.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
