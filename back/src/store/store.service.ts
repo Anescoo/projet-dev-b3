@@ -23,4 +23,8 @@ export class StoreService {
   getHello(): string {
     return 'Hello from store';
   }
+  //TODO: rajouter des donner fictives dans la bdd a partir d'une api externe par exemple
+  // TODO: rajouter un produit
+  //! ça devient la table produit
+  //TODO: table achat?
 }
