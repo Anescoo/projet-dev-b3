@@ -7,7 +7,14 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Store } from './store/entity/store.entity';
-
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { Order } from './orders/entity/order.entity';
+import { OrderItem } from './orders/entity/orderItem.entity';
+import { Product } from './products/entity/product.entity';
+import { ProductReview } from './products/entity/productReview.entity';
+import { User } from './users/entity/user.entity';
+import { Favorite } from './users/entity/favorite.entity';
 /**
  * !FIX BDD CONNEXION FOR DEPLOY
  * !la connexion avec une bdd externe marche pas : avec celle de georgio blem de permission et celle de
@@ -25,9 +32,11 @@ import { Store } from './store/entity/store.entity';
       username: 'app_user',
       password: 'secretpassword',
       database: 'app_db',
-      entities: [Store],
+      entities: [Order, OrderItem, Product, ProductReview, User, Favorite],
       synchronize: true,
     }),
+    ProductsModule,
+    OrdersModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
