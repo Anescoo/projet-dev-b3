@@ -35,20 +35,6 @@ Les users peuvent mettre mot de passe oublier et redéfinir le mot de passe
 
 IL y aussi des admin
 
-
-
 Les utilisateurs achète des produits
 
-Produits:
-chaque produit a un nomProduit , productSize , productColor, 'pas de systeme de stock'
-
-Achat:
-IL n'y a pas de procédé de paiment . UNe fois la commande réalisé on dis que la commande est réalisé
-
-Favoris ( optionnels )
-
-
-table utilisateur
-username 
-pwd
-email
+La raison pour laquelle il y a deux tables distinctes, "orders" et "order_items", est qu'une commande peut contenir plusieurs produits différents. En d'autres termes, une commande est une entité composée de plusieurs éléments. La table "orders" stocke les informations générales de chaque commande, telles que l'ID de l'utilisateur qui a passé la commande, le statut de la commande et la date de création. La table "order_items", quant à elle, stocke les informations spécifiques à chaque élément de la commande, telles que l'ID de la commande à laquelle l'élément appartient, l'ID du produit commandé, la quantité commandée et le prix unitaire de chaque produit. En reliant les deux tables via la clé étrangère "order_id", il est possible de relier chaque élément de la commande à la commande globale. Cette structure de base de données permet une organisation et une gestion plus efficace des commandes, ainsi que la possibilité de générer des rapports détaillés sur les ventes et les produits les plus populaires.

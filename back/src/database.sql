@@ -9,6 +9,16 @@ CREATE TABLE
         is_admin BOOLEAN DEFAULT FALSE
     );
 
+-- Favorie
+
+CREATE TABLE
+    favorites (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        product_id INTEGER REFERENCES products(id),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+
 -- Table pour stocker les produits
 
 CREATE TABLE
@@ -17,8 +27,8 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL,
         description TEXT,
         price DECIMAL(10, 2) NOT NULL,
-        image_url VARCHAR(255) NOT NULL,
-        is_favorite BOOLEAN DEFAULT FALSE
+        image BLOB NOT NULL,
+        productQuantity INTEGER NOT NULL
     );
 
 -- Table pour stocker les commandes
@@ -30,7 +40,6 @@ CREATE TABLE
         status VARCHAR(50) NOT NULL,
         created_at TIMESTAMP NOT NULL DEFAULT NOW(),
         updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        is_admin_order BOOLEAN DEFAULT FALSE
     );
 
 -- Table pour stocker les produits de chaque commande
@@ -40,7 +49,7 @@ CREATE TABLE
         id SERIAL PRIMARY KEY,
         order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
         product_id INTEGER REFERENCES products(id),
-        quantity INTEGER NOT NULL,
+        orderItemsQuantity INTEGER NOT NULL,
         price DECIMAL(10, 2) NOT NULL
     );
 
