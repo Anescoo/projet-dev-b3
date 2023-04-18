@@ -3,8 +3,8 @@ import { User } from './user.entity';
 import { Product } from 'src/products/entity/product.entity';
 @Entity()
 export class Favorite {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   user: User;

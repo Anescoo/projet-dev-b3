@@ -1,21 +1,22 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+//! ProductQuantity toujours positif
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  productId: string;
 
   @Column()
-  name: string;
+  productName: string;
 
   @Column({ nullable: true })
-  description: string;
+  description?: string | null;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ type: 'bigint' })
-  image: Buffer;
+  @Column({ type: 'bigint', nullable: true })
+  image?: Buffer | null;
 
   @Column()
   productQuantity: number;

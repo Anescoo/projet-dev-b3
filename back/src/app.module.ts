@@ -39,5 +39,6 @@ import { Favorite } from './users/entity/favorite.entity';
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
+  exports: [AppModule],
 })
 export class AppModule {}
