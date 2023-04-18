@@ -19,15 +19,16 @@ export class ProductService {
   }
 
   findAll(): Promise<Product[]> {
-    // return this.productsRepository.find();
-    return;
+    return this.productsRepository.find();
   }
 
-  // findOne(id: number): Promise<Product | null> {
-  //   return this.productsRepository.findOne({ id });
-  // }
+  findById(id: string): Promise<Product | null> {
+    return this.productsRepository.findOneBy({
+      productId: id, // where id is your column name
+    });
+  }
 
-  // async remove(id: number): Promise<void> {
-  //   await this.productsRepository.delete(id);
-  // }
+  async remove(id: string): Promise<void> {
+    await this.productsRepository.delete(id);
+  }
 }
