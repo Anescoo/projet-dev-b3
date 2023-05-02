@@ -11,7 +11,7 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entity/order.entity';
 import { OrderItem } from './orders/entity/orderItem.entity';
 import { Product } from './products/entity/product.entity';
-import { ProductReview } from './products/entity/productReview.entity';
+import { ProductReview } from './productReview/productReview.entity';
 import { User } from './users/entity/user.entity';
 import { Favorite } from './users/entity/favorite.entity';
 /**

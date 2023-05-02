@@ -47,3 +47,6 @@ Conflits de clés : si deux enregistrements sont ajoutés simultanément à une 
 Performances : lorsque les identifiants sont générés de manière séquentielle, les requêtes de base de données peuvent devenir plus lentes à mesure que la taille de la table augmente, car les index sur les clés primaires doivent être régulièrement mis à jour. Les identifiants UUID, en revanche, sont générés de manière aléatoire, ce qui peut réduire le temps nécessaire pour insérer et indexer les données.
 
 Fiabilité : si une application est conçue pour supprimer des enregistrements obsolètes en utilisant une date de création ou une autre propriété, l'utilisation d'identifiants séquentiels peut rendre cela difficile si les enregistrements ne sont pas insérés dans l'ordre chronologique. Cela peut entraîner une suppression incorrecte ou incomplète de données.
+
+SOLID
+- modifier  une classe c'est l'étendre sans la modifier

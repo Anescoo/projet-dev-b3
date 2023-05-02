@@ -1,6 +1,6 @@
-import { User } from 'src/users/entity/user.entity';
+import { User } from '../users/entity/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Product } from './product.entity';
+import { Product } from '../products/entity/product.entity';
 
 @Entity()
 export class ProductReview {
