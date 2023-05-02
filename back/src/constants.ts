@@ -14,3 +14,10 @@ export const USER_REQUEST_MAPPING = {
 };
 
 export const ROUTEPATH = 'API/V1';
+
+export const JWT_SECRET = 'jD5h2X93Pcgc4inZ44210a!';
+
+export const AUTH_REQUEST_MAPPING = {
+  SIGN_IN: '/signIn',
+  SIGN_UP: '/signUp',
+};
