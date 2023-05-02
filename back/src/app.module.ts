@@ -13,7 +13,7 @@ import { OrderItem } from './orders/entity/orderItem.entity';
 import { Product } from './products/entity/product.entity';
 import { ProductReview } from './productReview/productReview.entity';
 import { User } from './users/entity/user.entity';
-import { Favorite } from './users/entity/favorite.entity';
+import { Favorite } from './favorite/entity/favorite.entity';
 /**
  * !FIX BDD CONNEXION FOR DEPLOY
  * !la connexion avec une bdd externe marche pas : avec celle de georgio blem de permission et celle de

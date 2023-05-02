@@ -5,4 +5,12 @@ export const PRODUCT_REQUEST_MAPPING = {
   REMOVE_PRODUCT: '/removeProduct',
 };
 
+export const USER_REQUEST_MAPPING = {
+  CREATE_USER: '/create_user',
+  GET_ALL_USER: '/getAllUsers',
+  GET_USER_BY_ID: '/getUsersById',
+  GET_USER_BY_EMAIL: '/getUserByEmail',
+  REMOVE_USER: '/removeUsers',
+};
+
 export const ROUTEPATH = 'API/V1';
