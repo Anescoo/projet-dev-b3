@@ -15,5 +15,5 @@ export class User {
   password: string;
 
   @Column({ default: false })
-  idAdmin: boolean;
+  isAdmin: boolean;
 }

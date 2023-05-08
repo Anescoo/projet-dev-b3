@@ -10,6 +10,8 @@ import {
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { AUTH_REQUEST_MAPPING, ROUTEPATH } from './../constants';
+import { SignInDto } from './dto/signInDto';
+import { SigUpnDto } from './dto/signUpDto';
 
 @Controller(ROUTEPATH)
 export class AuthController {
@@ -18,10 +20,21 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AUTH_REQUEST_MAPPING.SIGN_IN)
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.userEmail, signInDto.password);
+  signIn(@Body() signInDto: SignInDto) {
+    return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post(AUTH_REQUEST_MAPPING.SIGN_UP)
+  signUp(@Body() signUpDto: SigUpnDto) {
+    return this.authService.signUp(
+      signUpDto.email,
+      signUpDto.password,
+      signUpDto.userName,
+      signUpDto.isAdmin,
+    );
+  }
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
