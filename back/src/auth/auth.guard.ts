@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { jwtConstants } from './constants';
+import { JWT_SECRET } from 'src/constants';
 import { IS_PUBLIC_KEY } from './decorators/public.decorator';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: jwtConstants.secret,
+        secret: JWT_SECRET,
       });
 
       request['user'] = payload;

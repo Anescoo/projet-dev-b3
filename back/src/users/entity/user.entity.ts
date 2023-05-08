@@ -11,9 +11,9 @@ export class User {
   @Column('varchar', { length: 30 })
   email: string;
 
-  @Column('char', { length: 20 })
+  @Column('varchar', { length: 20 })
   password: string;
 
   @Column({ default: false })
-  idAdmin: boolean;
+  isAdmin: boolean;
 }

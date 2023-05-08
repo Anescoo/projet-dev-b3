@@ -15,7 +15,7 @@ describe('UsersController', () => {
     (user1.userName = 'John'),
     (user1.email = 'john@example.com'),
     (user1.password = 'password'),
-    (user1.idAdmin = false);
+    (user1.isAdmin = false);
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

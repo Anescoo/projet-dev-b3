@@ -5,14 +5,13 @@ import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { jwtConstants } from './constants';
-
+import { JWT_SECRET } from 'src/constants';
 @Module({
   imports: [
     UsersModule,
     JwtModule.register({
       global: true,
-      secret: jwtConstants.secret,
+      secret: JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
   ],
