@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Post,
   Request,
@@ -11,8 +12,8 @@ import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { AUTH_REQUEST_MAPPING, ROUTEPATH } from './../constants';
 import { SignInDto } from './dto/signInDto';
-import { SigUpnDto } from './dto/signUpDto';
-
+import { SignUpDto } from './dto/signUpDto';
+//Todo: encrypter els infos partagées
 @Controller(ROUTEPATH)
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -27,13 +28,27 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AUTH_REQUEST_MAPPING.SIGN_UP)
-  signUp(@Body() signUpDto: SigUpnDto) {
-    return this.authService.signUp(
-      signUpDto.email,
-      signUpDto.password,
-      signUpDto.userName,
-      signUpDto.isAdmin,
-    );
+  signUp(@Body() signUpDto: SignUpDto) {
+    try {
+      return this.authService.signUp(
+        signUpDto.email,
+        signUpDto.password,
+        signUpDto.userName,
+        signUpDto.isAdmin,
+      );
+    } catch (error) {
+      //TODO: vérifier ce code
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: `error : ${{ error }}`,
+        },
+        HttpStatus.FORBIDDEN,
+        {
+          cause: error,
+        },
+      );
+    }
   }
   @Get('profile')
   getProfile(@Request() req) {

@@ -1,19 +1,26 @@
-import { IsBoolean, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Length,
+} from 'class-validator';
 
-export class SigUpnDto {
+export class SignUpDto {
+  @IsString()
   @IsNotEmpty()
-  @IsNotEmpty()
+  @Length(1, 20)
   userName: string;
 
-  @IsNotEmpty()
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
+  @IsString()
   @IsNotEmpty()
-  @MinLength(8)
+  @Length(1, 10)
   password: string;
 
-  @IsNotEmpty()
   @IsBoolean()
-  isAdmin: boolean;
+  isAdmin?: boolean;
 }
