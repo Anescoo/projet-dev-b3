@@ -1,3 +1,10 @@
+export const FAVORITE_REQUEST_MAPPING = {
+  CREATE_FAVORITE: '/create_favorite',
+  GET_ALL_FAVORITE: '/getAllFavorites',
+  GET_FAVORITE_BY_ID: 'getFavoritesById',
+  REMOVE_FAVORITE: '/removeFavorite',
+};
+
 export const PRODUCT_REQUEST_MAPPING = {
   CREATE_PRODUCT: '/create_product',
   GET_ALL_PRODUCT: '/getAllProduct',
