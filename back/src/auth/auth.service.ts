@@ -9,9 +9,6 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-  //todo: rajouter que si il y a un problème d'insertion dans la base de données signaler le problème et poursuivre
-  //todo: rajouter un filter
-
   async signIn(
     userEmail: string,
     pass: string,
@@ -51,7 +48,7 @@ export class AuthService {
     newUser.password = hashedPwd;
     newUser.userName = name;
     newUser.isAdmin = isAdmin;
-    this.usersService.createUser(newUser);
+    await this.usersService.createUser(newUser); // attendre la fin de l'insertion
     const payload = { userEmail: newUser.email, sub: newUser.userId };
     return {
       access_token: await this.jwtService.signAsync(payload),
