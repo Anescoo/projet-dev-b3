@@ -16,9 +16,13 @@ export class AuthService {
     userEmail: string,
     pass: string,
   ): Promise<{ access_token: string }> {
+    const security = new SecureData();
     const user: User = await this.usersService.findByMail(userEmail);
-
-    if (!user || user.password !== pass) {
+    const isPasswordMatched = await security.isHashDataMatch(
+      pass,
+      user.password,
+    );
+    if (!user || !isPasswordMatched) {
       throw new UnauthorizedException('fail auth');
     }
 
