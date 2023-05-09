@@ -20,7 +20,7 @@ export class AuthService {
       user.password,
     );
     if (!user || !isPasswordMatched) {
-      throw new UnauthorizedException('fail auth');
+      throw new UnauthorizedException('fail authh');
     }
 
     const payload = { userEmail: user.email, sub: user.userId };
