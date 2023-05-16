@@ -20,14 +20,17 @@ class _AuthenticationState extends State<Authentication> {
     final AuthController controller = Get.put(AuthController());
 
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            color: const Color.fromARGB(92, 7, 160, 207),
-            height: 170,
-          ),
-          Expanded(child: decideSignWidget(controller))
-        ],
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              color: const Color.fromARGB(92, 7, 160, 207),
+              height: 120,
+            ),
+            Expanded(child: decideSignWidget(controller))
+          ],
+        ),
       ),
     );
   }
