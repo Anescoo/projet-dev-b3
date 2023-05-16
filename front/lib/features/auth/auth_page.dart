@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:front/features/auth/auth_controller.dart';
 import 'package:get/get.dart';
-import 'signUp_page.dart';
-import 'signIn_page.dart';
+import 'sign_up_ui.dart';
+import 'sign_in_ui.dart';
 
 class Authentication extends StatefulWidget {
   const Authentication({super.key});
@@ -23,8 +23,8 @@ class _AuthenticationState extends State<Authentication> {
       body: Column(
         children: [
           Container(
-            color: const Color.fromARGB(255, 0, 170, 6),
-            height: 200,
+            color: const Color.fromARGB(92, 7, 160, 207),
+            height: 170,
           ),
           Expanded(child: decideSignWidget(controller))
         ],
@@ -36,11 +36,11 @@ Widget decideSignWidget(AuthController c) {
   return Obx(() {
     if (c.isSignUp.value == true) {
       return SignUp(
-        controller: c,
+        authController: c,
       );
     } else {
       return SignIn(
-        controller: c,
+        authController: c,
       );
     }
   });

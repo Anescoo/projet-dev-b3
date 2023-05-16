@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'auth_controller.dart';
 
 class SignIn extends StatelessWidget {
-  final AuthController controller;
+  final AuthController authController;
 
-  const SignIn({Key? key, required this.controller}) : super(key: key);
+  const SignIn({Key? key, required this.authController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SignIn extends StatelessWidget {
           child: TextButton(
         onPressed: () {
           //for signUp
-          controller.isSignUp.value = true;
+          authController.isSignUp.value = true;
         },
         child: const Text('got to signup'),
       )),
