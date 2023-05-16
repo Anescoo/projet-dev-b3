@@ -11,8 +11,7 @@ import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { AUTH_REQUEST_MAPPING, ROUTEPATH } from './../constants';
 import { SignInDto } from './dto/signInDto';
-import { SigUpnDto } from './dto/signUpDto';
-
+import { SignUpDto } from './dto/signUpDto';
 @Controller(ROUTEPATH)
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -27,7 +26,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AUTH_REQUEST_MAPPING.SIGN_UP)
-  signUp(@Body() signUpDto: SigUpnDto) {
+  signUp(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(
       signUpDto.email,
       signUpDto.password,

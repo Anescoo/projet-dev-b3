@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { SignInDto } from './dto/signInDto';
-import { SigUpnDto } from './dto/signUpDto';
+import { SignUpDto } from './dto/signUpDto';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -47,7 +47,7 @@ describe('AuthController', () => {
 
   describe('signUp', () => {
     it('should create a new user and return an access token', async () => {
-      const signUpDto: SigUpnDto = {
+      const signUpDto: SignUpDto = {
         email: 'test@example.com',
         password: 'password',
         userName: 'Test User',
