@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:front/app.dart';
 import 'package:get/get.dart';
 
+import '../home/home_page.dart';
 import 'auth_controller.dart';
 import 'components/my_button.dart';
 import 'components/my_text_field.dart';
 import 'components/square_tile.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   final AuthController authController;
 
-  SignIn({Key? key, required this.authController}) : super(key: key);
+  const SignIn({Key? key, required this.authController}) : super(key: key);
 
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   final passwordController = TextEditingController();
+
   final emailController = TextEditingController();
 
   @override
@@ -42,7 +50,7 @@ class SignIn extends StatelessWidget {
       ),
       MyButton(
         name: "Connectez vous",
-        onTap: signIp(),
+        onTap: signIp(context),
       ),
       const SizedBox(
         height: 25,
@@ -92,7 +100,7 @@ class SignIn extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              authController.isSignUp.value = true;
+              widget.authController.isSignUp.value = true;
             },
             child: const Text(
               "Connectez vous",
@@ -103,6 +111,11 @@ class SignIn extends StatelessWidget {
       )
     ]);
   }
-  
-  signIp() {}
+
+  signIp(context) {
+    // Navigator.of(context).push(MaterialPageRoute(
+    //                 builder: (context) => const Home(),
+    //               ));
+    // Get.to(const App());
+  }
 }
