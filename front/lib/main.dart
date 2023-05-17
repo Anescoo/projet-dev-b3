@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/app.dart';
 import 'package:get/get.dart';
 import 'features/auth/auth_page.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.grey),
       ),
-      home: const Authentication(),
+      home: App(),
       // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }
