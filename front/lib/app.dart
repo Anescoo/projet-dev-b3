@@ -54,12 +54,14 @@ class _AppState extends State<App> {
               child: GNav(
                 backgroundColor: Colors.white,
                 gap: 3,
+                onTabChange: (index) {
+                  index = router.index.value;
+                },
                 tabs: [
                   GButton(
                     icon: Icons.home,
                     text: 'Home',
                     onPressed: () {
-                      // index = 0;
                       router.index.value = 0;
                     },
                   ),
