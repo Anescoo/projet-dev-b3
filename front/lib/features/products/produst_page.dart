@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/features/products/components/filter.dart';
 import 'package:front/features/products/components/product_card.dart';
 
 class Product extends StatelessWidget {
@@ -8,10 +9,7 @@ class Product extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: Colors.purple,
-          height: 100,
-        ),
+        const Filter(),
         Expanded(
           child: Container(
               color: const Color.fromARGB(255, 240, 237, 237),
