@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:front/app.dart';
+import 'package:get/get.dart';
+import 'features/auth/auth_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Shop App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,9 +25,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.grey),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Authentication(),
+      // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }
 }
@@ -100,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
@@ -113,3 +117,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
