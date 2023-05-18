@@ -50,7 +50,11 @@ class _SignInState extends State<SignIn> {
       ),
       MyButton(
         name: "Connectez vous",
-        onTap: signIp(context),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const App(),
+          ));
+        },
       ),
       const SizedBox(
         height: 25,
@@ -110,12 +114,5 @@ class _SignInState extends State<SignIn> {
         ],
       )
     ]);
-  }
-
-  signIp(context) {
-    // Navigator.of(context).push(MaterialPageRoute(
-    //                 builder: (context) => const Home(),
-    //               ));
-    // Get.to(const App());
   }
 }

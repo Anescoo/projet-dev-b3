@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:front/features/auth/components/my_button.dart';
 import 'package:front/features/auth/components/my_text_field.dart';
 import 'package:front/features/auth/components/square_tile.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../app.dart';
 import 'auth_controller.dart';
 
 //! réglé le overflow
@@ -14,7 +17,6 @@ class SignUp extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -51,7 +53,11 @@ class SignUp extends StatelessWidget {
       ),
       MyButton(
         name: "Inscrivez vous",
-        onTap: signUp(),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const App(),
+          ));
+        },
       ),
       const SizedBox(
         height: 25,
@@ -112,6 +118,4 @@ class SignUp extends StatelessWidget {
       )
     ]);
   }
-
-  signUp() {}
 }
