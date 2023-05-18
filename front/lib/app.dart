@@ -6,6 +6,7 @@ import 'package:front/features/products/produst_page.dart';
 import 'package:front/route_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
 //! the bottom menu is not sync to the page when the user rollback. The page will change but not the state of the buttom menue
 class App extends StatefulWidget {
   const App({super.key});
@@ -37,9 +38,12 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async { if (router.index.value != 0) {
-        router.index.value = router.index.value -1;
-      } return false; },
+      onWillPop: () async {
+        if (router.index.value != 0) {
+          router.index.value = router.index.value - 1;
+        }
+        return false;
+      },
       child: SafeArea(
           child: Stack(children: [
         Container(
