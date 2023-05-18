@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:front/features/products/components/product_card.dart';
 
 class Product extends StatelessWidget {
   const Product({super.key});
-
+  final int NUMBER_OF_COMPONENT = 50;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(color: Colors.purple,height: 100,),
+        Container(
+          color: Colors.purple,
+          height: 100,
+        ),
         Expanded(
           child: Container(
-            color: Color.fromARGB(255, 240, 237, 237),
-            child:  GridView.count(
-                // Create a grid with 2 columns. If you change the scrollDirection to
-                // horizontal, this produces 2 rows.
-                crossAxisCount: 2,
-                // Generate 100 widgets that display their index in the List.
-                children: List.generate(50, (index) {
-                  return Center(
-                    child: Text(
-                      'Item $index',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  );
-                }),
-              ),
-          ),
+              color: const Color.fromARGB(255, 240, 237, 237),
+              child: GridView.builder(
+                  itemCount: NUMBER_OF_COMPONENT,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 270,
+                      crossAxisSpacing: 6),
+                  itemBuilder: (context, index) {
+                    return ProductCard(
+                      index: index,
+                      image: 'asset/main_vad_product.png',
+                      price: 2,
+                    );
+                  })),
         ),
       ],
     );
