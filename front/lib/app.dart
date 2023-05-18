@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/constatns.dart';
 import 'package:front/features/account/profile_page.dart';
 import 'package:front/features/home/home_page.dart';
 import 'package:front/features/order/order_page.dart';
@@ -44,60 +45,63 @@ class _AppState extends State<App> {
         }
         return false;
       },
-      child: SafeArea(
-          child: Stack(children: [
-        Container(
-          child: getWidget(),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
+      child: Container(
+        color: backGround,
+        child: SafeArea(
+            child: Stack(children: [
+          Container(
+            child: getWidget(),
+          ),
+          Align(
             alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              child: GNav(
-                backgroundColor: Colors.white,
-                gap: 3,
-                onTabChange: (index) {
-                  index = router.index.value;
-                },
-                tabs: [
-                  GButton(
-                    icon: Icons.home,
-                    text: 'Home',
-                    onPressed: () {
-                      router.index.value = 0;
-                    },
-                  ),
-                  GButton(
-                    icon: Icons.window,
-                    text: 'Produits',
-                    onPressed: () {
-                      router.index.value = 1;
-                    },
-                  ),
-                  GButton(
-                    icon: Icons.shopping_bag_rounded,
-                    text: 'Orders',
-                    onPressed: () {
-                      router.index.value = 2;
-                    },
-                  ),
-                  GButton(
-                    icon: Icons.account_circle,
-                    text: 'Profile',
-                    onPressed: () {
-                      router.index.value = 3;
-                    },
-                  )
-                ],
-                iconSize: 20,
-                padding: const EdgeInsets.all(20),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                child: GNav(
+                  backgroundColor: Colors.white,
+                  gap: 3,
+                  onTabChange: (index) {
+                    index = router.index.value;
+                  },
+                  tabs: [
+                    GButton(
+                      icon: Icons.home,
+                      text: 'Home',
+                      onPressed: () {
+                        router.index.value = 0;
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.window,
+                      text: 'Produits',
+                      onPressed: () {
+                        router.index.value = 1;
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.shopping_bag_rounded,
+                      text: 'Orders',
+                      onPressed: () {
+                        router.index.value = 2;
+                      },
+                    ),
+                    GButton(
+                      icon: Icons.account_circle,
+                      text: 'Profile',
+                      onPressed: () {
+                        router.index.value = 3;
+                      },
+                    )
+                  ],
+                  iconSize: 20,
+                  padding: const EdgeInsets.all(20),
+                ),
               ),
             ),
           ),
-        ),
-      ])),
+        ])),
+      ),
     );
   }
 }

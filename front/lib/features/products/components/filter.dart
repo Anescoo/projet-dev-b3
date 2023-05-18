@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/constatns.dart';
 
 class Filter extends StatelessWidget {
   const Filter({super.key});
@@ -6,8 +7,9 @@ class Filter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple,
+        color: backGround,
       height: 100,
+      child: Text("filter"),
     );
   }
 }

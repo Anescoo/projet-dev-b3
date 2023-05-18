@@ -18,7 +18,7 @@ class Product extends StatelessWidget {
         const Filter(),
         Expanded(
           child: Container(
-              color: const Color.fromARGB(255, 240, 237, 237),
+              color: Color.fromARGB(255, 233, 228, 228),
               child: GridView.builder(
                   itemCount: NUMBER_OF_COMPONENT,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,7 +35,11 @@ class Product extends StatelessWidget {
                         // productController.isDetail.value = true;
                         Navigator.of(context).push(MaterialPageRoute(
                           //! make the buttom menu stay still on details widget and on the product widget
-                          builder: (context) => const Details(),
+                          builder: (context) => const Details(
+                            description: 'dqdqfqfsqs',
+                            image: 'asset/main_vad_product.png',
+                            price: 2,
+                          ),
                         ));
                       },
                     );
