@@ -1,44 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:front/features/order/components/order_card.dart';
+import 'package:front/features/order/order_controller.dart';
+import 'package:get/get.dart';
 
-class Order extends StatelessWidget {
-  const Order({super.key});
+import '../products/product_controller.dart';
+
+class Order extends StatefulWidget {
+  final OrderController controller;
+
+  const Order({super.key, required this.controller});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(color: Colors.yellow,);
-  }
+  State<Order> createState() => _OrderState();
 }
 
-/**
- * 
- Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: GNav(
-            backgroundColor: Colors.white,
-            gap: 3,
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
-              ),
-              GButton(
-                icon: Icons.window,
-                text: 'Produits',
-              ),
-              GButton(
-                icon: Icons.shopping_bag_rounded,
-                text: 'Orders',
-              ),
-              GButton(
-                icon: Icons.account_circle,
-                text: 'Profile',
-              )
-            ],
-            iconSize: 20,
-            padding: EdgeInsets.all(20),
-          ),
+class _OrderState extends State<Order> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.yellow,
+      child: Column(children: [
+        Container(
+          color: const Color.fromARGB(255, 68, 228, 32),
+          height: 60,
         ),
-      
- */
+        ListView.builder(
+          itemCount: widget.controller.getCardLength(),
+          itemBuilder: (context, index) {
+            return OrderCard(
+              index: index + 1,
+              orderController: widget.controller,
+            );
+          },
+        )
+      ]),
+    );
+  }
+}

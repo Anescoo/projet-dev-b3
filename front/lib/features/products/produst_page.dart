@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:front/features/order/order_controller.dart';
 import 'package:front/features/products/components/filter.dart';
 import 'package:front/features/products/components/product_card.dart';
-import 'package:front/features/products/components/product_details.dart';
 import 'package:front/features/products/product_controller.dart';
 import 'package:front/features/products/product_model.dart';
 import 'package:get/get.dart';
 
 class Product extends StatelessWidget {
-  Product({super.key});
+  final ProductController productController;
+  final OrderController orderController;
+  Product(
+      {super.key,
+      required this.productController,
+      required this.orderController});
   // ignore: non_constant_identifier_names
   final int NUMBER_OF_COMPONENT = 8;
   // ignore: non_constant_identifier_names
@@ -64,8 +69,6 @@ class Product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController productController = Get.put(ProductController());
-
     return Column(
       children: [
         const Filter(),
@@ -83,6 +86,8 @@ class Product extends StatelessWidget {
                   return ProductCard(
                     index: index + 1,
                     product: product,
+                    productController: productController,
+                    orderController: orderController,
                   );
                 },
               )),

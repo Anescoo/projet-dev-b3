@@ -8,6 +8,9 @@ import 'package:front/route_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import 'features/order/order_controller.dart';
+import 'features/products/product_controller.dart';
+
 //! the bottom menu is not sync to the page when the user rollback. The page will change but not the state of the buttom menue
 class App extends StatefulWidget {
   const App({super.key});
@@ -18,6 +21,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final RouteController router = Get.put(RouteController());
+  final OrderController orderController = Get.put(OrderController());
+  final ProductController productController = Get.put(ProductController());
 
   Widget getWidget() {
     return Obx(() {
@@ -25,9 +30,11 @@ class _AppState extends State<App> {
         case 0:
           return const Home();
         case 1:
-          return Product();
+          return Product(
+              productController: productController,
+              orderController: orderController);
         case 2:
-          return const Order();
+          return Order(controller: orderController);
         case 3:
           return const Profile();
         default:
@@ -57,7 +64,8 @@ class _AppState extends State<App> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: GNav(
                   backgroundColor: Colors.white,
                   gap: 3,
