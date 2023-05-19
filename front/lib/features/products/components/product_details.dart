@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:front/constatns.dart';
+import 'package:front/features/products/product_model.dart';
 
 class Details extends StatelessWidget {
-  final String image;
-
-  final int price;
-
-  final String description;
+  final ProductModel product;
 
   const Details({
     Key? key,
-    required this.image,
-    required this.price,
-    required this.description,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -23,17 +18,16 @@ class Details extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
-              height: 500,
-              width: 900,
+            Image.network(
+              product.imageUrl,
+              height: 100,
             ),
             Text(
-              description,
+              product.description,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
-              "$price €",
+              "${product.prince} €",
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             TextButton(onPressed: () {}, child: Text('add to cardt'))
