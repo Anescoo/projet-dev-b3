@@ -7,37 +7,37 @@ class ProductCard extends StatelessWidget {
   final int index;
   final String image;
   final int price;
-  const ProductCard(
-      {Key? key,
-      required this.index,
-      required this.image,
-      required this.price,})
-      : super(key: key);
+  const ProductCard({
+    Key? key,
+    required this.index,
+    required this.image,
+    required this.price,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-                        print("object");
-                        // productController.isDetail.value = true;
-                        Navigator.of(context).push(MaterialPageRoute(
-                          //! make the buttom menu stay still on details widget and on the product widget
-                          builder: (context) => const Details(
-                            description: 'dqdqfqfsqs',
-                            image: 'asset/main_vad_product.png',
-                            price: 2,
-                          ),
-                        ));
-                      },
+        print("object");
+        // productController.isDetail.value = true;
+        Navigator.of(context).push(MaterialPageRoute(
+          //! make the buttom menu stay still on details widget and on the product widget
+          builder: (context) => const Details(
+            description: 'dqdqfqfsqs',
+            image: 'asset/main_vad_product.png',
+            price: 2,
+          ),
+        ));
+      },
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             color: const Color.fromARGB(255, 226, 220, 220),
             child: Column(
               children: [
-                Image.asset(
+                Image.network(
                   image,
-                  height: 180,
+                  height: 100,
                 ),
                 Text(
                   'Item $index',

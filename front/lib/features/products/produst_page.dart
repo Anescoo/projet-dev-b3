@@ -62,7 +62,11 @@ class Product extends StatelessWidget {
         2),
   ];
 
-  // List<ProductCard> Lcards = List.generate(3, (index) => null);
+  List<ProductCard> Lcards = List.generate(8, (index) => ProductCard(
+                      index: index,
+                      image: 'asset/main_vad_product.png',
+                      price: 2,
+                    ));
   @override
   Widget build(BuildContext context) {
     final ProductController productController = Get.put(ProductController());
@@ -82,7 +86,7 @@ class Product extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ProductCard(
                       index: index,
-                      image: 'asset/main_vad_product.png',
+                      image: 'https://d4c5gb8slvq7w.cloudfront.net/eyJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjcwMCwiaGVpZ2h0Ijo3MDJ9fSwiYnVja2V0IjoidGhyZWFkc21hZ2F6aW5lLnMzLnRhdW50b25jbG91ZC5jb20iLCJrZXkiOiJhcHBcL3VwbG9hZHNcLzUxMzlcLzEzXC8xMTIwMTkyMlwvMTMxLXR1cm4tb2YtY2xvdGgtMDEtbWFpbi03MDB4NzAyLmpwZyJ9',
                       price: 2,
                     );
                   })),
