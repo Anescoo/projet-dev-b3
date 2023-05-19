@@ -15,8 +15,8 @@ export class Product {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ type: 'bigint', nullable: true })
-  image?: Buffer | null;
+  @Column({ nullable: true })
+  imageUrl: string | null;
 
   @Column()
   productQuantity: number;
