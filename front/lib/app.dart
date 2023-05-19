@@ -25,7 +25,7 @@ class _AppState extends State<App> {
         case 0:
           return const Home();
         case 1:
-          return const Product();
+          return Product();
         case 2:
           return const Order();
         case 3:
