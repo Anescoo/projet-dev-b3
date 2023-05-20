@@ -1,0 +1,1 @@
+//# sourceMappingURL=favorite.module.js.map
