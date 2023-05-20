@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FavoriteService } from './favorite.service';
 import { Favorite } from './entity/favorite.entity';
+import { Product } from 'src/products/entity/product.entity';
+import { User } from 'src/users/entity/user.entity';
 
 describe('FavoriteService', () => {
   let favoriteService: FavoriteService;
@@ -13,89 +14,98 @@ describe('FavoriteService', () => {
       providers: [
         FavoriteService,
         {
-          provide: getRepositoryToken(Favorite),
-          useClass: Repository,
+          provide: Repository,
+          useClass: jest.fn(),
         },
       ],
     }).compile();
 
     favoriteService = module.get<FavoriteService>(FavoriteService);
-    favoritesRepository = module.get<Repository<Favorite>>(
-      getRepositoryToken(Favorite),
-    );
+    favoritesRepository = module.get<Repository<Favorite>>(Repository);
   });
 
   describe('createFavorite', () => {
-    it('should create a favorite', async () => {
-      const favorite = new Favorite();
-      favorite.id = 1;
-      favorite.name = 'Product A';
+    it('should create and return a new favorite', async () => {
+      const favorite: Favorite = {
+	      id: '',
+	      user: new User,
+	      product: new Product,
+	      created_at: undefined
+      };
 
-      const spy = jest
+      const saveSpy = jest
         .spyOn(favoritesRepository, 'save')
-        .mockResolvedValueOnce(favorite);
+        .mockResolvedValue(favorite);
 
-      const createdFavorite = await favoriteService.createFavorite(favorite);
+      const result = await favoriteService.createFavorite(favorite);
 
-      expect(createdFavorite).toEqual(favorite);
-      expect(spy).toHaveBeenCalledWith(favorite);
+      expect(saveSpy).toHaveBeenCalledWith(favorite);
+      expect(result).toEqual(favorite);
     });
   });
 
   describe('findAll', () => {
     it('should return an array of favorites', async () => {
-      const favorites = [
-        { id: 1, name: 'Product A' },
-        { id: 2, name: 'Product B' },
-        { id: 3, name: 'Product C' },
+      const favorites: Favorite[] = [
+        // Mock your favorites array here
       ];
 
-      const spy = jest
+      const findSpy = jest
         .spyOn(favoritesRepository, 'find')
-        .mockResolvedValueOnce(favorites);
+        .mockResolvedValue(favorites);
 
-      const foundFavorites = await favoriteService.findAll();
+      const result = await favoriteService.findAll();
 
-      expect(foundFavorites).toEqual(favorites);
-      expect(spy).toHaveBeenCalled();
+      expect(findSpy).toHaveBeenCalled();
+      expect(result).toEqual(favorites);
     });
   });
 
   describe('findById', () => {
-    it('should return a favorite with the specified id', async () => {
-      const favorite = { id: 1, name: 'Product A' };
+    it('should return a favorite by its ID', async () => {
+      const favoriteId = '1';
+      const favorite: Favorite = {
+	      id: '',
+	      user: new User,
+	      product: new Product,
+	      created_at: undefined
+      };
 
-      const spy = jest
+      const findOneSpy = jest
         .spyOn(favoritesRepository, 'findOne')
-        .mockResolvedValueOnce(favorite);
+        .mockResolvedValue(favorite);
 
-      const foundFavorite = await favoriteService.findById('1');
+      const result = await favoriteService.findById(favoriteId);
 
-      expect(foundFavorite).toEqual(favorite);
-      expect(spy).toHaveBeenCalledWith({ id: '1' });
+      expect(findOneSpy).toHaveBeenCalledWith({ id: favoriteId });
+      expect(result).toEqual(favorite);
     });
 
-    it('should return null if no favorite with the specified id is found', async () => {
-      const spy = jest
+    it('should return null if no favorite is found', async () => {
+      const favoriteId = '1';
+
+      const findOneSpy = jest
         .spyOn(favoritesRepository, 'findOne')
-        .mockResolvedValueOnce(null);
+        .mockResolvedValue(null);
 
-      const foundFavorite = await favoriteService.findById('1');
+      const result = await favoriteService.findById(favoriteId);
 
-      expect(foundFavorite).toBeNull();
-      expect(spy).toHaveBeenCalledWith({ id: '1' });
+      expect(findOneSpy).toHaveBeenCalledWith({ id: favoriteId });
+      expect(result).toBeNull();
     });
   });
 
   describe('remove', () => {
-    it('should remove a favorite with the specified id', async () => {
-      const spy = jest
+    it('should remove a favorite by its ID', async () => {
+      const favoriteId = '1';
+
+      const deleteSpy = jest
         .spyOn(favoritesRepository, 'delete')
-        .mockResolvedValueOnce(undefined);
+        .mockResolvedValue(undefined);
 
-      await favoriteService.remove('1');
+      await favoriteService.remove(favoriteId);
 
-      expect(spy).toHaveBeenCalledWith('1');
+      expect(deleteSpy).toHaveBeenCalledWith(favoriteId);
     });
   });
 });

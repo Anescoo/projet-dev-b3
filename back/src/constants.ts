@@ -1,3 +1,10 @@
+export const PRODUCT_REVIEW_REQUEST_MAPPING = {
+  CREATE_PRODUCT_REVIEW: '/create_product_review',
+  GET_ALL_PRODUCT_REVIEW: '/getAllProductReviews',
+  GET_PRODUCT_REVIEW_BY_ID: '/getProductReviewById',
+  REMOVE_PRODUCT_REVIEW: '/removeProductReview',
+};
+
 export const FAVORITE_REQUEST_MAPPING = {
   CREATE_FAVORITE: '/create_favorite',
   GET_ALL_FAVORITE: '/getAllFavorites',
@@ -19,6 +26,8 @@ export const USER_REQUEST_MAPPING = {
   GET_USER_BY_EMAIL: '/getUserByEmail',
   REMOVE_USER: '/removeUsers',
 };
+
+
 
 export const ROUTEPATH = 'API/V1';
 
