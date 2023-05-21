@@ -1,7 +1,8 @@
-import { Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './entity/product.entity';
 import { PRODUCT_REQUEST_MAPPING, ROUTEPATH } from './../constants';
+import { CreateProductDto } from './dto/createProductDto';
 @Controller(ROUTEPATH)
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -10,8 +11,8 @@ export class ProductController {
     return this.productService.getPing();
   }
   @Post(PRODUCT_REQUEST_MAPPING.CREATE_PRODUCT)
-  createProduct(product: Product): Promise<Product> {
-    return this.productService.createProduct(product);
+  createProduct(@Body() productDto: CreateProductDto): Promise<Product> {
+    return this.productService.createProduct(productDto);
   }
   @Get(PRODUCT_REQUEST_MAPPING.GET_ALL_PRODUCT)
   getAllProduct(): Promise<Product[]> {
