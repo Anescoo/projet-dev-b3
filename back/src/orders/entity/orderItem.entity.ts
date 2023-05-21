@@ -5,7 +5,7 @@ import { Product } from 'src/products/entity/product.entity';
 @Entity()
 export class OrderItem {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @ManyToOne(() => Order, { onDelete: 'CASCADE' })
   order: Order;

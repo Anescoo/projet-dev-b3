@@ -1,3 +1,10 @@
+export const ORDER_REQUEST_MAPPING = {
+  CREATE_ORDER: '/create_order',
+  GET_ALL_ORDERS: '/getAllProductOrders',
+  GET_ORDER_BY_ID: '/getOrderById',
+  REMOVE_ORDER: '/removeOrder',
+};
+
 export const PRODUCT_REVIEW_REQUEST_MAPPING = {
   CREATE_PRODUCT_REVIEW: '/create_product_review',
   GET_ALL_PRODUCT_REVIEW: '/getAllProductReviews',
