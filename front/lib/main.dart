@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:front/app.dart';
-import 'package:get/get.dart';
-import 'features/auth/auth_page.dart';
-
+import 'package:front/app_model.dart';
+import 'package:front/features/auth/sign_in_ui.dart';
+import 'package:provider/provider.dart';
 void main() {
-  runApp(const GetMaterialApp(home: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.grey),
       ),
-      home: const Authentication(),
+      home: SignIn(),
       // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }
