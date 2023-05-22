@@ -1,98 +1,185 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:front/features/auth/signin.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Client {
-  late String token;
-  final String baseUrl = 'https://nest-p82k.onrender.com';
+  final dio = Dio();
+  late String token = '';
+  var box;
+
+  var url = Uri.https('nest-p82k.onrender.com', '/API/V1/');
+// var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 
   Client() {
-    token = '';
+    dio.options.baseUrl = 'https://nest-p82k.onrender.com';
+    Hive.initFlutter();
   }
 
-  Future<String> _getAuthorizationHeader() async {
-    if (token.isNotEmpty) {
-      return 'Bearer $token';
+  void addToken(String value) async {
+    var box = await Hive.openBox('testBox');
+    box.put("token", value);
+  }
+
+  Future<String> getToken(String key) async {
+    var res = box.get('token');
+    print(res);
+    return res['token'];
+  }
+
+  static void setHeader(Dio dio, token) {
+    // Ajouter un intercepteur global
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        // Ajouter le jeton d'authentification à chaque requête
+        options.headers["Authorization"] = "Bearer $token";
+        return handler.next(options);
+      },
+    ));
+  }
+
+  /// Tester le fonctionnement de l'apoi
+  void request() async {
+    Response response;
+    Map result = {};
+
+    try {
+      response = await dio.get('/API/V1/');
+      result = response.data;
+      // ignore: avoid_print
+      print(response.data.toString());
+    } catch (error) {
+      // Gérer d'autres types d'erreurs ici
+      result = {"result": "random error"};
     }
-    return '';
+    print(result);
   }
 
-  Future<http.Response> _get(String endpoint) async {
-    final url = Uri.parse('$baseUrl$endpoint');
-    final headers = {'Authorization': await _getAuthorizationHeader()};
-    return await http.get(url, headers: headers);
-  }
-
-  Future<http.Response> _post(String endpoint, dynamic data) async {
-    final url = Uri.parse('$baseUrl$endpoint');
-    final headers = {'Authorization': await _getAuthorizationHeader()};
-    final body = jsonEncode(data);
-    return await http.post(url, headers: headers, body: body);
-  }
-
+  /// Create a user account
+  /// @return auth token
   Future<String> signUp(String username, String email, String pwd) async {
-    final response = await _post('/API/V1/signUp',
-        {'name': username, 'email': email, 'password': pwd});
-    final responseData = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      token = responseData['token'];
-      return token;
-    } else {
-      throw Exception('Failed to sign up: ${responseData['error']}');
-    }
+    Response response;
+    response = await dio.post('/API/V1/signUp',
+        data: {"name": username, "email": email, "password": pwd});
+    Map<String, dynamic> val = response.data;
+    //TODO ajouter le token d'authentification auw requettes
+
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers["Authorization"] = "Bearer ${val["token"]}";
+        return handler.next(options);
+      },
+    ));
+    return val["token"];
   }
 
-  Future<String> signIn(SignIn user) async {
-    final response = await _post('/API/V1/signIn', user.toJson());
-    final responseData = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      token = responseData['access_token'];
-      print(token);
-      return token;
-    } else {
-      throw Exception('Failed to sign in: ${responseData['error']}');
+  Future<Map> signIn(SignIn user) async {
+    Response response;
+    var test;
+    Map result = {};
+    Map<String, dynamic> val = {};
+
+    try {
+      response = await dio.post('/API/V1/signIn', data: user.toJson());
+      // test = await http.post(url, body: user);
+      // print('Response body: ${test.body}');
+
+      val = response.data;
+      if (response.statusCode == 200) {
+        result = {"result": "ok"};
+        // Récupérer le jeton d'authentification
+        token = val["access_token"];
+        var box = await Hive.openBox('testBox');
+
+        box.put('token', token);
+
+        print('Name: ${box.get('token')}');
+        box.close();
+        setHeader(dio, token);
+      }
+    } on DioError catch (error) {
+      // Gérer les erreurs spécifiques à DioError ici
+      if (error.response != null) {
+        // Erreur associée à une réponse HTTP
+        result = {"result": "${error.response}"};
+      } else if (error.requestOptions != null) {
+        // Erreur liée à la requête
+        result = {"result": "${error.requestOptions.uri}"};
+      }
+      print("Message d'erreur général: ${error.message}");
+    } catch (error) {
+      // Gérer d'autres types d'erreurs ici
+      result = {"result": "random error"};
     }
+    print(result);
+    return result;
   }
 
-  Future<String> pingServer() async {
-    final response = await _get('/API/V1/');
-    if (response.statusCode == 200 && response.body == 'pong') {
-      return 'pong';
+Future<String> pingServer() async {
+  try {
+    var box = await Hive.openBox('testBox');
+    var token = box.get('token');
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        // Ajouter le jeton d'autorisation à chaque requête
+        options.headers["Authorization"] = "Bearer $token";
+        return handler.next(options);
+      },
+    ));
+    print("ping ici");
+    final response = await dio.get('/API/V1/getAllProduct');
+    print(response.data);
+
+    if (response.statusCode == 200 && response.data == "pong") {
+      return "pong";
     } else {
-      return 'Erreur : L\'utilisateur n\'est pas authentifié.';
+      return "Erreur : L'utilisateur n'est pas authentifié.";
     }
+  } on DioError catch (error) {
+    // Gérer les erreurs spécifiques à DioError ici
+    if (error.response != null) {
+      // Erreur associée à une réponse HTTP
+      return "Erreur : ${error.response}";
+    } else if (error.requestOptions != null) {
+      // Erreur liée à la requête
+      return "Erreur : ${error.requestOptions.uri}";
+    } else {
+      return "Erreur aléatoire.";
+    }
+  } catch (error) {
+    // Gérer d'autres types d'erreurs ici
+    return "Erreur aléatoire.";
   }
+}
 
-  // Reste des méthodes à implémenter...
 
+  //TODO
   Future<String> getAllProducts() async {
-    // À implémenter
     return '';
   }
 
+  //TODO
   Future<String> getUsersData() async {
-    // À implémenter
     return '';
   }
 
-  Future<String> deleteAccount() async {
-    // À implémenter
+  //TODO
+  Future<String> deleteAccunt() async {
     return '';
   }
 
+  //TODO
   Future<String> getAllOrders() async {
-    // À implémenter
     return '';
   }
+
+  //TODO GET the 5 first product on the bdd
 
   String getSomeProducts() {
-    // À implémenter
     return '';
   }
 
+  //TODO get the most liked product
   String getMostLikedProduct() {
-    // À implémenter
     return '';
   }
 }
