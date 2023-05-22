@@ -1,3 +1,21 @@
+export declare const ORDER_REQUEST_MAPPING: {
+    CREATE_ORDER: string;
+    GET_ALL_ORDERS: string;
+    GET_ORDER_BY_ID: string;
+    REMOVE_ORDER: string;
+};
+export declare const PRODUCT_REVIEW_REQUEST_MAPPING: {
+    CREATE_PRODUCT_REVIEW: string;
+    GET_ALL_PRODUCT_REVIEW: string;
+    GET_PRODUCT_REVIEW_BY_ID: string;
+    REMOVE_PRODUCT_REVIEW: string;
+};
+export declare const FAVORITE_REQUEST_MAPPING: {
+    CREATE_FAVORITE: string;
+    GET_ALL_FAVORITE: string;
+    GET_FAVORITE_BY_ID: string;
+    REMOVE_FAVORITE: string;
+};
 export declare const PRODUCT_REQUEST_MAPPING: {
     CREATE_PRODUCT: string;
     GET_ALL_PRODUCT: string;

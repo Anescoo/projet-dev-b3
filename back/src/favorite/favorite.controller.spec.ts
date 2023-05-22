@@ -22,7 +22,7 @@ describe('FavoriteController', () => {
   describe('createFavorite', () => {
     it('should create a favorite', async () => {
       const favorite: Favorite = {
-	      id: '',
+	      favoriteId: '',
 	      user: new User,
 	      product: new Product,
 	      created_at: undefined
@@ -55,7 +55,7 @@ describe('FavoriteController', () => {
   describe('getFavoriteById', () => {
     it('should return a favorite by ID', async () => {
       const favorite: Favorite = {
-	      id: '',
+	      favoriteId: '',
 	      user: new User,
 	      product: new Product,
 	      created_at: undefined

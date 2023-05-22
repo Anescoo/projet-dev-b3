@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProductReview } from './entity/productReview.entity';
+import { CreateProductReviewDto } from './dto/createProductReviewDto';
 
 @Injectable()
 export class ProductReviewService {
@@ -10,8 +11,8 @@ export class ProductReviewService {
     private ProductReviewRepository: Repository<ProductReview>,
   ) {}
 
-  createProductReview(ProductReview: ProductReview): Promise<ProductReview> {
-    return this.ProductReviewRepository.save(ProductReview);
+  createProductReview(ProductReviewDto: CreateProductReviewDto): Promise<ProductReview> {
+    return this.ProductReviewRepository.save(ProductReviewDto);
   }
 
   findAll(): Promise<ProductReview[]> {

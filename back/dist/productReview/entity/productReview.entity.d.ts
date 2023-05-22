@@ -1,5 +1,5 @@
-import { User } from '../users/entity/user.entity';
-import { Product } from '../products/entity/product.entity';
+import { User } from '../../users/entity/user.entity';
+import { Product } from '../../products/entity/product.entity';
 export declare class ProductReview {
     id: string;
     user: User;

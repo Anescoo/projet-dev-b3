@@ -21,7 +21,7 @@ const orders_module_1 = require("./orders/orders.module");
 const order_entity_1 = require("./orders/entity/order.entity");
 const orderItem_entity_1 = require("./orders/entity/orderItem.entity");
 const product_entity_1 = require("./products/entity/product.entity");
-const productReview_entity_1 = require("./productReview/productReview.entity");
+const productReview_entity_1 = require("./productReview/entity/productReview.entity");
 const user_entity_1 = require("./users/entity/user.entity");
 const favorite_entity_1 = require("./favorite/entity/favorite.entity");
 let AppModule = AppModule_1 = class AppModule {

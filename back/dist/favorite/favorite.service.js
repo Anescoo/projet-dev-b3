@@ -12,34 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductReviewService = void 0;
+exports.FavoriteService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const productReview_entity_1 = require("./entity/productReview.entity");
-let ProductReviewService = class ProductReviewService {
-    constructor(ProductReviewRepository) {
-        this.ProductReviewRepository = ProductReviewRepository;
+const favorite_entity_1 = require("./entity/favorite.entity");
+let FavoriteService = class FavoriteService {
+    constructor(favoritesRepository) {
+        this.favoritesRepository = favoritesRepository;
     }
-    createProductReview(ProductReview) {
-        return this.ProductReviewRepository.save(ProductReview);
+    createFavorite(favorite) {
+        return this.favoritesRepository.save(favorite);
     }
     findAll() {
-        return this.ProductReviewRepository.find();
+        return this.favoritesRepository.find();
     }
     findById(id) {
-        return this.ProductReviewRepository.findOneBy({
+        return this.favoritesRepository.findOneBy({
             id: id,
         });
     }
     async remove(id) {
-        await this.ProductReviewRepository.delete(id);
+        await this.favoritesRepository.delete(id);
     }
 };
-ProductReviewService = __decorate([
+FavoriteService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(productReview_entity_1.ProductReview)),
+    __param(0, (0, typeorm_1.InjectRepository)(favorite_entity_1.Favorite)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], ProductReviewService);
-exports.ProductReviewService = ProductReviewService;
-//# sourceMappingURL=productReview.service.js.map
+], FavoriteService);
+exports.FavoriteService = FavoriteService;
+//# sourceMappingURL=favorite.service.js.map

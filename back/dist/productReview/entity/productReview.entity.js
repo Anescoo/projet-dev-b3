@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductReview = void 0;
-const user_entity_1 = require("../users/entity/user.entity");
+const user_entity_1 = require("../../users/entity/user.entity");
 const typeorm_1 = require("typeorm");
-const product_entity_1 = require("../products/entity/product.entity");
+const product_entity_1 = require("../../products/entity/product.entity");
 let ProductReview = class ProductReview {
 };
 __decorate([

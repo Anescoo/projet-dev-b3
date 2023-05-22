@@ -1,15 +1,16 @@
-import { Controller, Get, Post, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete } from '@nestjs/common';
 import { ProductReviewService } from './productReview.service';
 import { ProductReview } from './entity/productReview.entity';
 import { PRODUCT_REVIEW_REQUEST_MAPPING, ROUTEPATH } from './../constants';
+import { CreateProductReviewDto } from './dto/createProductReviewDto';
 
 @Controller(ROUTEPATH)
 export class ProductReviewController {
   constructor(private ProductReviewService: ProductReviewService) {}
 
   @Post(PRODUCT_REVIEW_REQUEST_MAPPING.CREATE_PRODUCT_REVIEW)
-  createProductReview(ProductReview: ProductReview): Promise<ProductReview> {
-    return this.ProductReviewService.createProductReview(ProductReview);
+  createProductReview(@Body() ProductReviewDto: CreateProductReviewDto): Promise<ProductReview> {
+    return this.ProductReviewService.createProductReview(ProductReviewDto);
   }
   @Get(PRODUCT_REVIEW_REQUEST_MAPPING.GET_ALL_PRODUCT_REVIEW)
   getAllProductReview(): Promise<ProductReview[]> {

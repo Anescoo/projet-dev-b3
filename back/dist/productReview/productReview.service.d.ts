@@ -1,8 +1,10 @@
 import { Repository } from 'typeorm';
-import { ProductReview } from './productReview.entity';
+import { ProductReview } from './entity/productReview.entity';
 export declare class ProductReviewService {
-    private reviewRepository;
-    constructor(reviewRepository: Repository<ProductReview>);
-    getProductReview(productId: string, userId: string): Promise<ProductReview | null>;
-    getAllProductReview(): Promise<ProductReview | null>;
+    private ProductReviewRepository;
+    constructor(ProductReviewRepository: Repository<ProductReview>);
+    createProductReview(ProductReview: ProductReview): Promise<ProductReview>;
+    findAll(): Promise<ProductReview[]>;
+    findById(id: string): Promise<ProductReview | null>;
+    remove(id: string): Promise<void>;
 }

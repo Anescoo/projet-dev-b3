@@ -12,34 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductReviewService = void 0;
+exports.OrderService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const productReview_entity_1 = require("./entity/productReview.entity");
-let ProductReviewService = class ProductReviewService {
-    constructor(ProductReviewRepository) {
-        this.ProductReviewRepository = ProductReviewRepository;
+const order_entity_1 = require("./entity/order.entity");
+let OrderService = class OrderService {
+    constructor(OrdersRepository) {
+        this.OrdersRepository = OrdersRepository;
     }
-    createProductReview(ProductReview) {
-        return this.ProductReviewRepository.save(ProductReview);
+    createOrder(Order) {
+        return this.OrdersRepository.save(Order);
     }
     findAll() {
-        return this.ProductReviewRepository.find();
+        return this.OrdersRepository.find();
     }
     findById(id) {
-        return this.ProductReviewRepository.findOneBy({
+        return this.OrdersRepository.findOneBy({
             id: id,
         });
     }
     async remove(id) {
-        await this.ProductReviewRepository.delete(id);
+        await this.OrdersRepository.delete(id);
     }
 };
-ProductReviewService = __decorate([
+OrderService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(productReview_entity_1.ProductReview)),
+    __param(0, (0, typeorm_1.InjectRepository)(order_entity_1.Order)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], ProductReviewService);
-exports.ProductReviewService = ProductReviewService;
-//# sourceMappingURL=productReview.service.js.map
+], OrderService);
+exports.OrderService = OrderService;
+//# sourceMappingURL=orders.service.js.map

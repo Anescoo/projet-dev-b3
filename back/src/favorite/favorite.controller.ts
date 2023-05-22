@@ -1,15 +1,16 @@
-import { Controller, Get, Post, Delete } from '@nestjs/common';
+import { Body,Controller, Get, Post, Delete } from '@nestjs/common';
 import { FavoriteService } from './favorite.service';
 import { Favorite } from './entity/favorite.entity';
 import { FAVORITE_REQUEST_MAPPING, ROUTEPATH } from './../constants';
+import { CreateFavoriteDto } from './dto/createFavoriteDto';
 
 @Controller(ROUTEPATH)
 export class FavoriteController {
   constructor(private favoriteService: FavoriteService) {}
 
   @Post(FAVORITE_REQUEST_MAPPING.CREATE_FAVORITE)
-  createFavorite(favorite: Favorite): Promise<Favorite> {
-    return this.favoriteService.createFavorite(favorite);
+  createFavorite(@Body() favoriteDto: CreateFavoriteDto ): Promise<Favorite> {
+    return this.favoriteService.createFavorite(favoriteDto);
   }
   @Get(FAVORITE_REQUEST_MAPPING.GET_ALL_FAVORITE)
   getAllFavorite(): Promise<Favorite[]> {

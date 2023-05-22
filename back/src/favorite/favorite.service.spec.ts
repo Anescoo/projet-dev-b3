@@ -27,7 +27,7 @@ describe('FavoriteService', () => {
   describe('createFavorite', () => {
     it('should create and return a new favorite', async () => {
       const favorite: Favorite = {
-	      id: '',
+	      favoriteId: '',
 	      user: new User,
 	      product: new Product,
 	      created_at: undefined
@@ -65,7 +65,7 @@ describe('FavoriteService', () => {
     it('should return a favorite by its ID', async () => {
       const favoriteId = '1';
       const favorite: Favorite = {
-	      id: '',
+	      favoriteId: '',
 	      user: new User,
 	      product: new Product,
 	      created_at: undefined

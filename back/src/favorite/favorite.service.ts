@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Favorite } from './entity/favorite.entity';
+import { CreateFavoriteDto } from './dto/createFavoriteDto';
 
 @Injectable()
 export class FavoriteService {
@@ -10,8 +11,8 @@ export class FavoriteService {
     private favoritesRepository: Repository<Favorite>,
   ) {}
 
-  createFavorite(favorite: Favorite): Promise<Favorite> {
-    return this.favoritesRepository.save(favorite);
+  createFavorite(favoriteDto: CreateFavoriteDto): Promise<Favorite> {
+    return this.favoritesRepository.save(favoriteDto);
   }
 
   findAll(): Promise<Favorite[]> {
@@ -20,7 +21,7 @@ export class FavoriteService {
 
   findById(id: string): Promise<Favorite | null> {
     return this.favoritesRepository.findOneBy({
-      id: id, // where id is your column name
+      favoriteId: id, // where id is your column name
     });
   }
 

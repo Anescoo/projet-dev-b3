@@ -1,7 +1,7 @@
 import { Order } from './order.entity';
 import { Product } from 'src/products/entity/product.entity';
 export declare class OrderItem {
-    id: number;
+    id: string;
     order: Order;
     product: Product;
     orderItemsQuantity: number;

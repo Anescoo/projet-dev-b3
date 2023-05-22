@@ -1,6 +1,6 @@
 import { User } from 'src/users/entity/user.entity';
 export declare class Order {
-    id: number;
+    id: string;
     user: User;
     status: string;
     created_at: Date;
