@@ -18,6 +18,7 @@ import { Favorite } from './favorite/entity/favorite.entity';
  * !FIX BDD CONNEXION FOR DEPLOY
  * !la connexion avec une bdd externe marche pas : avec celle de georgio blem de permission et celle de
  * ! render je sais mm plus .
+ * ! utiliser dotenv pour les credentials
  * *Pour le moment il faut utiliser une bdd local
  */
 @Module({
@@ -26,13 +27,15 @@ import { Favorite } from './favorite/entity/favorite.entity';
     UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'dpg-chk6o0e7avj217c964tg-a.frankfurt-postgres.render.com',
       port: 5432,
       username: 'app_user',
-      password: 'secretpassword',
-      database: 'app_db',
+      password: 'sA49LtdEt30pBLCjcDONVUiHF0S12R5u',
+      database: 'app_db_p3l5',
       entities: [Order, OrderItem, Product, ProductReview, User, Favorite],
       synchronize: true,
+      logging: true,
+      ssl: true,
     }),
     ProductsModule,
     OrdersModule,

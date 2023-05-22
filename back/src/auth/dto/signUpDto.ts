@@ -18,7 +18,7 @@ export class SignUpDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(1, 10)
+  @Length(8, 20)
   password: string;
 
   @IsBoolean()

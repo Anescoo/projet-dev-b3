@@ -1,27 +1,20 @@
-# Base image
-FROM node:18
+# Utilisez l'image de base Node.js
+FROM node:18-alpine
 
+# Définissez le répertoire de travail dans le conteneur
+WORKDIR /app
 
-# Create app directory
-WORKDIR /usr/src/app
-
-
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# Copiez le fichier package.json et package-lock.json
 COPY package*.json ./
 
+# Installez les dépendances du projet
+RUN npm ci --only=production
 
-# Install app dependencies
-RUN npm install
-
-
-# Bundle app source
+# Copiez le reste des fichiers de l'application
 COPY . .
 
-
-# Creates a "dist" folder with the production build
-RUN npm run build
-
+# Exposez le port sur lequel l'application écoute
 EXPOSE 3000
 
-# Start the server using the production build
-CMD [ "node", "dist/main.js" ]
+# Démarrez l'application
+CMD [ "npm", "run", "start:prod" ]
