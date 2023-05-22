@@ -21,8 +21,8 @@ let OrderService = class OrderService {
     constructor(OrdersRepository) {
         this.OrdersRepository = OrdersRepository;
     }
-    createOrder(Order) {
-        return this.OrdersRepository.save(Order);
+    createOrder(orderDto) {
+        return this.OrdersRepository.save(orderDto);
     }
     findAll() {
         return this.OrdersRepository.find();

@@ -21,8 +21,8 @@ let ProductReviewService = class ProductReviewService {
     constructor(ProductReviewRepository) {
         this.ProductReviewRepository = ProductReviewRepository;
     }
-    createProductReview(ProductReview) {
-        return this.ProductReviewRepository.save(ProductReview);
+    createProductReview(ProductReviewDto) {
+        return this.ProductReviewRepository.save(ProductReviewDto);
     }
     findAll() {
         return this.ProductReviewRepository.find();

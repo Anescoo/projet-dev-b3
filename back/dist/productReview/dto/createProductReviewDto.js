@@ -9,30 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Favorite = void 0;
-const typeorm_1 = require("typeorm");
+exports.CreateProductReviewDto = void 0;
+const class_validator_1 = require("class-validator");
 const user_entity_1 = require("../../users/entity/user.entity");
 const product_entity_1 = require("../../products/entity/product.entity");
-let Favorite = class Favorite {
-};
+class CreateProductReviewDto {
+}
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", String)
-], Favorite.prototype, "favoriteId", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { onDelete: 'CASCADE' }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", user_entity_1.User)
-], Favorite.prototype, "user", void 0);
+], CreateProductReviewDto.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", product_entity_1.Product)
-], Favorite.prototype, "product", void 0);
+], CreateProductReviewDto.prototype, "product", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateProductReviewDto.prototype, "rating", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateProductReviewDto.prototype, "comment", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsDateString)(),
     __metadata("design:type", Date)
-], Favorite.prototype, "created_at", void 0);
-Favorite = __decorate([
-    (0, typeorm_1.Entity)()
-], Favorite);
-exports.Favorite = Favorite;
-//# sourceMappingURL=favorite.entity.js.map
+], CreateProductReviewDto.prototype, "created_at", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", Date)
+], CreateProductReviewDto.prototype, "updated_at", void 0);
+exports.CreateProductReviewDto = CreateProductReviewDto;
+//# sourceMappingURL=createProductReviewDto.js.map

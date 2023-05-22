@@ -21,15 +21,15 @@ let FavoriteService = class FavoriteService {
     constructor(favoritesRepository) {
         this.favoritesRepository = favoritesRepository;
     }
-    createFavorite(favorite) {
-        return this.favoritesRepository.save(favorite);
+    createFavorite(favoriteDto) {
+        return this.favoritesRepository.save(favoriteDto);
     }
     findAll() {
         return this.favoritesRepository.find();
     }
     findById(id) {
         return this.favoritesRepository.findOneBy({
-            id: id,
+            favoriteId: id,
         });
     }
     async remove(id) {

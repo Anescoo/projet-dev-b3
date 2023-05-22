@@ -2,14 +2,13 @@ import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
 import { USER_REQUEST_MAPPING, ROUTEPATH } from './../constants';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/createUserDto';
 
 @Controller(ROUTEPATH)
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Post(USER_REQUEST_MAPPING.CREATE_USER)
-  createUser(@Body() UserDto: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(UserDto);
+  createUser(user: User): Promise<User> {
+    return this.usersService.createUser(user);
   }
   @Get(USER_REQUEST_MAPPING.GET_ALL_USER)
   getAllUsers(): Promise<User[]> {

@@ -1,9 +1,10 @@
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/createUserDto';
 export declare class UsersController {
     private usersService;
     constructor(usersService: UsersService);
-    createUser(user: User): Promise<User>;
+    createUser(UserDto: CreateUserDto): Promise<User>;
     getAllUsers(): Promise<User[]>;
     getUserById(id: string): Promise<User | null>;
     getUserByEmail(email: string): Promise<User | null>;

@@ -8,18 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderController = void 0;
 const common_1 = require("@nestjs/common");
 const orders_service_1 = require("./orders.service");
-const order_entity_1 = require("./entity/order.entity");
 const constants_1 = require("./../constants");
+const createOrderDto_1 = require("./dto/createOrderDto");
 let OrderController = class OrderController {
     constructor(OrderService) {
         this.OrderService = OrderService;
     }
-    createOrder(Order) {
-        return this.OrderService.createOrder(Order);
+    createOrder(orderDto) {
+        return this.OrderService.createOrder(orderDto);
     }
     getAllOrders() {
         return this.OrderService.findAll();
@@ -33,8 +36,9 @@ let OrderController = class OrderController {
 };
 __decorate([
     (0, common_1.Post)(constants_1.ORDER_REQUEST_MAPPING.CREATE_ORDER),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [order_entity_1.Order]),
+    __metadata("design:paramtypes", [createOrderDto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "createOrder", null);
 __decorate([

@@ -8,18 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductReviewController = void 0;
 const common_1 = require("@nestjs/common");
 const productReview_service_1 = require("./productReview.service");
-const productReview_entity_1 = require("./entity/productReview.entity");
 const constants_1 = require("./../constants");
+const createProductReviewDto_1 = require("./dto/createProductReviewDto");
 let ProductReviewController = class ProductReviewController {
     constructor(ProductReviewService) {
         this.ProductReviewService = ProductReviewService;
     }
-    createProductReview(ProductReview) {
-        return this.ProductReviewService.createProductReview(ProductReview);
+    createProductReview(ProductReviewDto) {
+        return this.ProductReviewService.createProductReview(ProductReviewDto);
     }
     getAllProductReview() {
         return this.ProductReviewService.findAll();
@@ -33,8 +36,9 @@ let ProductReviewController = class ProductReviewController {
 };
 __decorate([
     (0, common_1.Post)(constants_1.PRODUCT_REVIEW_REQUEST_MAPPING.CREATE_PRODUCT_REVIEW),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [productReview_entity_1.ProductReview]),
+    __metadata("design:paramtypes", [createProductReviewDto_1.CreateProductReviewDto]),
     __metadata("design:returntype", Promise)
 ], ProductReviewController.prototype, "createProductReview", null);
 __decorate([
