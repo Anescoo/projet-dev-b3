@@ -1,141 +1,118 @@
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:front/features/auth/signin.dart';
-import 'package:http/http.dart' as http;
 
 class Client {
-  final dio = Dio();
-  late String token = '';
-
-  var url = Uri.https('nest-p82k.onrender.com','/API/V1/');
-// var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  final Dio dio = Dio();
+  String token = '';
+  final String baseUrl = 'https://nest-p82k.onrender.com';
 
   Client() {
-    dio.options.baseUrl = 'https://nest-p82k.onrender.com';
-  }
-
-  static void setHeader(Dio dio, token) {
-    // Ajouter un intercepteur global
+    dio.options.baseUrl = baseUrl;
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         // Ajouter le jeton d'authentification à chaque requête
-        options.headers["Authorization"] = "Bearer $token";
+        if (token.isNotEmpty) {
+          options.headers["Authorization"] = "Bearer $token";
+        }
         return handler.next(options);
       },
     ));
   }
 
-  /// Tester le fonctionnement de l'apoi
-  void request() async {
-    Response response;
-    Map result = {};
-
+  Future<Map<String, dynamic>> signIn(SignIn user) async {
     try {
-      response = await dio.get('/API/V1/');
-      result = response.data;
-      // ignore: avoid_print
-      print(response.data.toString());
-    } catch (error) {
-      // Gérer d'autres types d'erreurs ici
-      result = {"result": "random error"};
-    }
-    print(result);
-  }
-
-  /// Create a user account
-  /// @return auth token
-  Future<String> signUp(String username, String email, String pwd) async {
-    Response response;
-    response = await dio.post('/API/V1/signUp',
-        data: {"name": username, "email": email, "password": pwd});
-    Map<String, dynamic> val = response.data;
-    //TODO ajouter le token d'authentification auw requettes
-
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        options.headers["Authorization"] = "Bearer ${val["token"]}";
-        return handler.next(options);
-      },
-    ));
-    return val["token"];
-  }
-
-  Future<Map> signIn(SignIn user) async {
-    Response response;
-    var test;
-    Map result = {};
-    Map<String, dynamic> val = {};
-
-    try {
-      response = await dio.post('/API/V1/signIn', data: user.toJson());
-      test = await http.post(url, body: user);
-      print('Response body: ${test.body}');
-
-      val = response.data;
+      final response =
+          await dio.post('/API/V1/signIn', data: user.toJson()).then((value) {
+        dio.options.headers = {'Authorization': token};
+      });
+      final val = response.data;
       if (response.statusCode == 200) {
-        result = {"result": "ok"};
-        // Récupérer le jeton d'authentification
         token = val["access_token"];
-
-        setHeader(dio, token);
+        return {"result": "ok"};
+      } else {
+        return {"result": "error"};
       }
     } on DioError catch (error) {
       // Gérer les erreurs spécifiques à DioError ici
       if (error.response != null) {
         // Erreur associée à une réponse HTTP
-        result = {"result": "${error.response}"};
+        return {"result": "${error.response}"};
       } else if (error.requestOptions != null) {
         // Erreur liée à la requête
-        result = {"result": "${error.requestOptions.uri}"};
+        return {"result": "${error.requestOptions.uri}"};
+      } else {
+        return {"result": "random error"};
       }
-      print("Message d'erreur général: ${error.message}");
     } catch (error) {
       // Gérer d'autres types d'erreurs ici
-      result = {"result": "random error"};
+      return {"result": "random error"};
     }
-
-    // // Vérifier si le jeton d'authentification est disponible
-    // if (val.containsKey("access_token")) {
-    //   // Ajouter le jeton d'authentification aux futures requêtes
-    //   dio.interceptors.add(InterceptorsWrapper(
-    //     onRequest: (options, handler) {
-    //       options.headers["Authorization"] = "Bearer ${val["access_token"]}";
-    //       return handler.next(options);
-    //     },
-    //   ));
-    // }
-
-    print(result);
-    return result;
   }
 
-  //TODO
-  Future<String> getAllProducts() async {
-    return '';
+  Future<Map<String, dynamic>> signUp(
+      String username, String email, String pwd) async {
+    try {
+      final response = await dio.post('/API/V1/signUp',
+          data: {"name": username, "email": email, "password": pwd});
+      final val = response.data;
+      if (response.statusCode == 200) {
+        token = val["token"];
+        return {"result": "ok"};
+      } else {
+        return {"result": "error"};
+      }
+    } on DioError catch (error) {
+      // Gérer les erreurs spécifiques à DioError ici
+      if (error.response != null) {
+        // Erreur associée à une réponse HTTP
+        return {"result": "${error.response}"};
+      } else if (error.requestOptions != null) {
+        // Erreur liée à la requête
+        return {"result": "${error.requestOptions.uri}"};
+      } else {
+        return {"result": "random error"};
+      }
+    } catch (error) {
+      // Gérer d'autres types d'erreurs ici
+      return {"result": "random error"};
+    }
   }
 
-  //TODO
-  Future<String> getUsersData() async {
-    return '';
+  void checkToken() {
+    final dioHttpClientAdapter = dio.httpClientAdapter as IOHttpClientAdapter;
+    final tokenHeader = dio.options.headers['Authorization'];
+    if (tokenHeader != null && tokenHeader.toString().isNotEmpty) {
+      print(
+          "Le jeton d'authentification est présent dans l'en-tête de la requête.");
+    } else {
+      print(
+          "Le jeton d'authentification n'est pas présent dans l'en-tête de la requête.");
+    }
   }
 
-  //TODO
-  Future<String> deleteAccunt() async {
-    return '';
-  }
-
-  //TODO
-  Future<String> getAllOrders() async {
-    return '';
-  }
-
-  //TODO GET the 5 first product on the bdd
-
-  String getSomeProducts() {
-    return '';
-  }
-
-  //TODO get the most liked product
-  String getMostLikedProduct() {
-    return '';
+  Future<String> pingServer() async {
+    try {
+      final response = await dio.get('/API/V1/');
+      if (response.statusCode == 200 && response.data == "pong") {
+        return "pong";
+      } else {
+        return "Erreur : L'utilisateur n'est pas authentifié.";
+      }
+    } on DioError catch (error) {
+      // Gérer les erreurs spécifiques à DioError ici
+      if (error.response != null) {
+        // Erreur associée à une réponse HTTP
+        return "Erreur : ${error.response}";
+      } else if (error.requestOptions != null) {
+        // Erreur liée à la requête
+        return "Erreur : ${error.requestOptions.uri}";
+      } else {
+        return "Erreur aléatoire.";
+      }
+    } catch (error) {
+      // Gérer d'autres types d'erreurs ici
+      return "Erreur aléatoire.";
+    }
   }
 }
