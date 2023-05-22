@@ -1,118 +1,98 @@
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:front/features/auth/signin.dart';
 
 class Client {
-  final Dio dio = Dio();
-  String token = '';
+  late String token;
   final String baseUrl = 'https://nest-p82k.onrender.com';
 
   Client() {
-    dio.options.baseUrl = baseUrl;
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        // Ajouter le jeton d'authentification à chaque requête
-        if (token.isNotEmpty) {
-          options.headers["Authorization"] = "Bearer $token";
-        }
-        return handler.next(options);
-      },
-    ));
+    token = '';
   }
 
-  Future<Map<String, dynamic>> signIn(SignIn user) async {
-    try {
-      final response =
-          await dio.post('/API/V1/signIn', data: user.toJson()).then((value) {
-        dio.options.headers = {'Authorization': token};
-      });
-      final val = response.data;
-      if (response.statusCode == 200) {
-        token = val["access_token"];
-        return {"result": "ok"};
-      } else {
-        return {"result": "error"};
-      }
-    } on DioError catch (error) {
-      // Gérer les erreurs spécifiques à DioError ici
-      if (error.response != null) {
-        // Erreur associée à une réponse HTTP
-        return {"result": "${error.response}"};
-      } else if (error.requestOptions != null) {
-        // Erreur liée à la requête
-        return {"result": "${error.requestOptions.uri}"};
-      } else {
-        return {"result": "random error"};
-      }
-    } catch (error) {
-      // Gérer d'autres types d'erreurs ici
-      return {"result": "random error"};
+  Future<String> _getAuthorizationHeader() async {
+    if (token.isNotEmpty) {
+      return 'Bearer $token';
     }
+    return '';
   }
 
-  Future<Map<String, dynamic>> signUp(
-      String username, String email, String pwd) async {
-    try {
-      final response = await dio.post('/API/V1/signUp',
-          data: {"name": username, "email": email, "password": pwd});
-      final val = response.data;
-      if (response.statusCode == 200) {
-        token = val["token"];
-        return {"result": "ok"};
-      } else {
-        return {"result": "error"};
-      }
-    } on DioError catch (error) {
-      // Gérer les erreurs spécifiques à DioError ici
-      if (error.response != null) {
-        // Erreur associée à une réponse HTTP
-        return {"result": "${error.response}"};
-      } else if (error.requestOptions != null) {
-        // Erreur liée à la requête
-        return {"result": "${error.requestOptions.uri}"};
-      } else {
-        return {"result": "random error"};
-      }
-    } catch (error) {
-      // Gérer d'autres types d'erreurs ici
-      return {"result": "random error"};
-    }
+  Future<http.Response> _get(String endpoint) async {
+    final url = Uri.parse('$baseUrl$endpoint');
+    final headers = {'Authorization': await _getAuthorizationHeader()};
+    return await http.get(url, headers: headers);
   }
 
-  void checkToken() {
-    final dioHttpClientAdapter = dio.httpClientAdapter as IOHttpClientAdapter;
-    final tokenHeader = dio.options.headers['Authorization'];
-    if (tokenHeader != null && tokenHeader.toString().isNotEmpty) {
-      print(
-          "Le jeton d'authentification est présent dans l'en-tête de la requête.");
+  Future<http.Response> _post(String endpoint, dynamic data) async {
+    final url = Uri.parse('$baseUrl$endpoint');
+    final headers = {'Authorization': await _getAuthorizationHeader()};
+    final body = jsonEncode(data);
+    return await http.post(url, headers: headers, body: body);
+  }
+
+  Future<String> signUp(String username, String email, String pwd) async {
+    final response = await _post('/API/V1/signUp',
+        {'name': username, 'email': email, 'password': pwd});
+    final responseData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      token = responseData['token'];
+      return token;
     } else {
-      print(
-          "Le jeton d'authentification n'est pas présent dans l'en-tête de la requête.");
+      throw Exception('Failed to sign up: ${responseData['error']}');
+    }
+  }
+
+  Future<String> signIn(SignIn user) async {
+    final response = await _post('/API/V1/signIn', user.toJson());
+    final responseData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      token = responseData['access_token'];
+      print(token);
+      return token;
+    } else {
+      throw Exception('Failed to sign in: ${responseData['error']}');
     }
   }
 
   Future<String> pingServer() async {
-    try {
-      final response = await dio.get('/API/V1/');
-      if (response.statusCode == 200 && response.data == "pong") {
-        return "pong";
-      } else {
-        return "Erreur : L'utilisateur n'est pas authentifié.";
-      }
-    } on DioError catch (error) {
-      // Gérer les erreurs spécifiques à DioError ici
-      if (error.response != null) {
-        // Erreur associée à une réponse HTTP
-        return "Erreur : ${error.response}";
-      } else if (error.requestOptions != null) {
-        // Erreur liée à la requête
-        return "Erreur : ${error.requestOptions.uri}";
-      } else {
-        return "Erreur aléatoire.";
-      }
-    } catch (error) {
-      // Gérer d'autres types d'erreurs ici
-      return "Erreur aléatoire.";
+    final response = await _get('/API/V1/');
+    if (response.statusCode == 200 && response.body == 'pong') {
+      return 'pong';
+    } else {
+      return 'Erreur : L\'utilisateur n\'est pas authentifié.';
     }
+  }
+
+  // Reste des méthodes à implémenter...
+
+  Future<String> getAllProducts() async {
+    // À implémenter
+    return '';
+  }
+
+  Future<String> getUsersData() async {
+    // À implémenter
+    return '';
+  }
+
+  Future<String> deleteAccount() async {
+    // À implémenter
+    return '';
+  }
+
+  Future<String> getAllOrders() async {
+    // À implémenter
+    return '';
+  }
+
+  String getSomeProducts() {
+    // À implémenter
+    return '';
+  }
+
+  String getMostLikedProduct() {
+    // À implémenter
+    return '';
   }
 }
