@@ -60,6 +60,7 @@ class SignInUi extends StatelessWidget {
                       SignIn(email: "testoy@gmail.com", password: "testoy64");
                   print(api.signIn(user));
                   print("ui");
+                  // api.request();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const App(),
                   ));

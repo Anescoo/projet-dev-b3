@@ -1,28 +1,44 @@
 import 'package:dio/dio.dart';
 import 'package:front/features/auth/signin.dart';
+import 'package:http/http.dart' as http;
 
 class Client {
   final dio = Dio();
   late String token = '';
 
-  //TODO: Gerer le fait que l'api sleep
+  var url = Uri.https('nest-p82k.onrender.com','/API/V1/');
+// var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+
   Client() {
     dio.options.baseUrl = 'https://nest-p82k.onrender.com';
   }
 
+  static void setHeader(Dio dio, token) {
+    // Ajouter un intercepteur global
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        // Ajouter le jeton d'authentification à chaque requête
+        options.headers["Authorization"] = "Bearer $token";
+        return handler.next(options);
+      },
+    ));
+  }
+
   /// Tester le fonctionnement de l'apoi
-  Future<String> request() async {
+  void request() async {
     Response response;
-    response = await dio.get('/');
-    // ignore: avoid_print
-    print(response.data.toString());
-    // // The below request is the same as above.
-    // response = await dio.get(
-    //   '/test',
-    //   queryParameters: {'id': 12, 'name': 'dio'},
-    // );
-    // print(response.data.toString());
-    return response.data.toString();
+    Map result = {};
+
+    try {
+      response = await dio.get('/API/V1/');
+      result = response.data;
+      // ignore: avoid_print
+      print(response.data.toString());
+    } catch (error) {
+      // Gérer d'autres types d'erreurs ici
+      result = {"result": "random error"};
+    }
+    print(result);
   }
 
   /// Create a user account
@@ -45,20 +61,28 @@ class Client {
 
   Future<Map> signIn(SignIn user) async {
     Response response;
+    var test;
     Map result = {};
- Map<String, dynamic> val;
+    Map<String, dynamic> val = {};
 
     try {
       response = await dio.post('/API/V1/signIn', data: user.toJson());
+      test = await http.post(url, body: user);
+      print('Response body: ${test.body}');
+
       val = response.data;
       if (response.statusCode == 200) {
         result = {"result": "ok"};
+        // Récupérer le jeton d'authentification
+        token = val["access_token"];
+
+        setHeader(dio, token);
       }
     } on DioError catch (error) {
       // Gérer les erreurs spécifiques à DioError ici
       if (error.response != null) {
         // Erreur associée à une réponse HTTP
-        result ={"result":  "${error.response}"};
+        result = {"result": "${error.response}"};
       } else if (error.requestOptions != null) {
         // Erreur liée à la requête
         result = {"result": "${error.requestOptions.uri}"};
@@ -68,15 +92,18 @@ class Client {
       // Gérer d'autres types d'erreurs ici
       result = {"result": "random error"};
     }
-    //TODO ajouter le token d'authentification auw requettes
 
-    // dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) {
-    //     options.headers["Authorization"] = "Bearer ${val["access_token"]}";
-    //     return handler.next(options);
-    //   },
-    // ));
-    // print(val["access_token"]);
+    // // Vérifier si le jeton d'authentification est disponible
+    // if (val.containsKey("access_token")) {
+    //   // Ajouter le jeton d'authentification aux futures requêtes
+    //   dio.interceptors.add(InterceptorsWrapper(
+    //     onRequest: (options, handler) {
+    //       options.headers["Authorization"] = "Bearer ${val["access_token"]}";
+    //       return handler.next(options);
+    //     },
+    //   ));
+    // }
+
     print(result);
     return result;
   }
