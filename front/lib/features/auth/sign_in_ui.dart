@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:front/app.dart';
+import 'package:front/client.dart';
 import 'package:front/features/auth/sign_up_ui.dart';
 import 'components/my_button.dart';
 import 'components/my_text_field.dart';
 import 'components/square_tile.dart';
+import 'signin.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({
+class SignInUi extends StatelessWidget {
+  SignInUi({
     Key? key,
   }) : super(key: key);
 
   final passwordController = TextEditingController();
 
   final emailController = TextEditingController();
+
+  Client api = Client();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,10 @@ class SignIn extends StatelessWidget {
               MyButton(
                 name: "Connectez vous",
                 onTap: () {
+                  SignIn user =
+                      SignIn(email: "testoy@gmail.com", password: "testoy64");
+                  print(api.signIn(user));
+                  print("ui");
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const App(),
                   ));

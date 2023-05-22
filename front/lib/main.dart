@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             .copyWith(background: Colors.grey),
       ),
-      home: SignIn(),
+      home: SignInUi(),
       // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }
