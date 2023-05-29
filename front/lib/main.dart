@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/app_model.dart';
-import 'package:front/features/auth/sign_in_ui.dart';
+import 'package:front/features/auth/presentation/pages/sign_in_ui.dart';
 import 'package:provider/provider.dart';
 void main() {
   runApp(

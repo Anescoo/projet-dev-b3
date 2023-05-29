@@ -1,0 +1,24 @@
+# Implementing clean archi
+
+- config
+  - routes
+  - theme
+- core : share
+  - error
+  - network
+  - usecase
+  - util
+- features
+  - f1
+    - data
+      - datasource
+      - models
+      - repo
+    - domain : business logic of the app
+      - entities: data type and class eg model   
+      - repository * abactract , contract
+      - usecase * bridge between layer eg signin , login
+    - presentation
+      - bloc * state management 
+      - pages
+      - widgets 

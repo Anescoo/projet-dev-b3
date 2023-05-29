@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:front/features/auth/components/my_button.dart';
-import 'package:front/features/auth/components/my_text_field.dart';
-import 'package:front/features/auth/components/square_tile.dart';
-import 'package:front/features/auth/sign_in_ui.dart';
+import 'package:front/features/auth/presentation/components/my_button.dart';
+import 'package:front/features/auth/presentation/components/my_text_field.dart';
+import 'package:front/features/auth/presentation/components/square_tile.dart';
+import 'package:front/features/auth/presentation/pages/sign_in_ui.dart';
 
-import '../../app.dart';
+import '../../../../app.dart';
 
 //! réglé le overflow
 class SignUp extends StatelessWidget {

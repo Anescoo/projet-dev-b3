@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:front/app.dart';
 import 'package:front/client.dart';
-import 'package:front/features/auth/sign_up_ui.dart';
-import 'components/my_button.dart';
-import 'components/my_text_field.dart';
-import 'components/square_tile.dart';
-import 'signin.dart';
+import 'package:front/features/auth/presentation/pages/sign_up_ui.dart';
+import '../components/my_button.dart';
+import '../components/my_text_field.dart';
+import '../components/square_tile.dart';
+import '../../signin.dart';
 
-class SignInUi extends StatelessWidget {
-  SignInUi({
+class SignInUi extends StatefulWidget {
+  const SignInUi({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<SignInUi> createState() => _SignInUiState();
+}
+
+class _SignInUiState extends State<SignInUi> {
   final passwordController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -56,11 +61,11 @@ class SignInUi extends StatelessWidget {
               MyButton(
                 name: "Connectez vous",
                 onTap: () {
-                  SignIn user =
-                      SignIn(email: "testoy@gmail.com", password: "testoy64");
-                  api.signIn(user);
-                  api.pingServer();
-                  print("ui");
+                  // SignIn user =
+                  //     SignIn(email: "testoy@gmail.com", password: "testoy64");
+                  // api.signIn(user);
+                  // api.pingServer();
+                  // print("ui");
                   // api.pingServer().then((value) => print(value));
                   // api.request();
                   Navigator.of(context).push(MaterialPageRoute(
@@ -71,10 +76,10 @@ class SignInUi extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                         child: Divider(
                       thickness: 1,
@@ -98,10 +103,10 @@ class SignInUi extends StatelessWidget {
               const SizedBox(
                 height: 3,
               ),
-              Center(
+              const Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [SquareTile(imagePath: "asset/google.png")],
+                  children: [SquareTile(imagePath: "asset/google.png")],
                 ),
               ),
               const SizedBox(

@@ -2,6 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:front/features/auth/signin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+/**
+ * 1- recup des données sur l'api
+ * 2- incercion dans hive
+ * 3- récup des données sur hive et ttes les autres requètes vers hive
+ */
 class Client {
   final dio = Dio();
   late String token = '';
