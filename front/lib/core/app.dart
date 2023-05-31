@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/core/constatns.dart';
-import 'package:front/features/auth/presentation/pages/profile_page.dart';
+import 'package:front/features/users/presentation/pages/profile_page.dart';
 import 'package:front/features/content/presentation/pages/home_page.dart';
 import 'package:front/features/content/presentation/pages/order_page.dart';
 import 'package:front/features/content/presentation/pages/produst_page.dart';

@@ -1,11 +1,11 @@
 
 import 'package:dio/dio.dart';
 import 'package:front/core/utils/data_state.dart';
-import 'package:front/features/auth/data/datasource/remote/auth_user_api_service.dart';
-import 'package:front/features/auth/data/model/user.dart';
-import 'package:front/features/auth/domain/entity/user.dart';
-import 'package:front/features/auth/domain/repository/auth_repository.dart';
-import 'package:front/features/auth/presentation/state/auth_model.dart';
+import 'package:front/features/users/data/datasource/remote/auth_user_api_service.dart';
+import 'package:front/features/users/data/model/user.dart';
+import 'package:front/features/users/domain/entity/user.dart';
+import 'package:front/features/users/domain/repository/auth_repository.dart';
+import 'package:front/features/users/presentation/state/auth_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository{
   final AuthUserApiService _authUserApiService;

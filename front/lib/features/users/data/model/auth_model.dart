@@ -1,8 +1,6 @@
-
-import 'package:front/features/auth/domain/entity/user.dart';
-
-class UserModel extends User {
-  const UserModel(
+import 'package:front/features/users/domain/entity/user.dart';
+class AuthModel extends User {
+  const AuthModel(
       {String? token,
       String? usrname,
       String? email,
@@ -10,9 +8,9 @@ class UserModel extends User {
       bool? isAdmin,
       List? fav,
       String? id});
-  
-  factory UserModel.fromJson(Map<String,dynamic> map){
-      return UserModel(
+
+    factory AuthModel.fromJson(Map<String,dynamic> map){
+      return AuthModel(
         token: map['access_token'] ?? '',
         usrname: map['username'] ?? '',
         email: map['email'] ?? '',
@@ -20,4 +18,5 @@ class UserModel extends User {
         isAdmin: map['isAdmin'] ?? '',
       );
     }
+
 }

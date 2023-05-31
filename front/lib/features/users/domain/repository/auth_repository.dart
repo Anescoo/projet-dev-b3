@@ -1,7 +1,7 @@
 
 import 'package:front/core/utils/data_state.dart';
-import 'package:front/features/auth/data/model/user.dart';
-import 'package:front/features/auth/domain/entity/user.dart';
+import 'package:front/features/users/data/model/user.dart';
+import 'package:front/features/users/domain/entity/user.dart';
 
 /// make all the request to api for tha auth process 
 abstract class AuthRepository {

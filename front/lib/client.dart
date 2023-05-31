@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:front/features/auth/data/model/signin.dart';
+import 'package:front/features/users/data/model/signin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /**

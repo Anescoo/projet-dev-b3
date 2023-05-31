@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:front/core/app.dart';
 import 'package:front/client.dart';
-import 'package:front/features/auth/presentation/pages/sign_up_ui.dart';
+import 'package:front/features/users/domain/usecase/authenticate.dart';
+import 'package:front/features/users/presentation/pages/sign_up_ui.dart';
 import '../components/my_button.dart';
 import '../components/my_text_field.dart';
 import '../components/square_tile.dart';
@@ -61,6 +62,7 @@ class _SignInUiState extends State<SignInUi> {
               MyButton(
                 name: "Connectez vous",
                 onTap: () {
+                  // AuthenticateUsecase login = AuthenticateUsecase();
                   // SignIn user =
                   //     SignIn(email: "testoy@gmail.com", password: "testoy64");
                   // api.signIn(user);
