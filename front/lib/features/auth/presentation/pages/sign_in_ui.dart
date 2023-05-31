@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:front/app.dart';
+import 'package:front/core/app.dart';
 import 'package:front/client.dart';
 import 'package:front/features/auth/presentation/pages/sign_up_ui.dart';
 import '../components/my_button.dart';
 import '../components/my_text_field.dart';
 import '../components/square_tile.dart';
-import '../../signin.dart';
+import '../../data/model/signin.dart';
 
 class SignInUi extends StatefulWidget {
   const SignInUi({

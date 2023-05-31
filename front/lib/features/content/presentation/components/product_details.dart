@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:front/constatns.dart';
-import 'package:front/features/products/product_model.dart';
+import 'package:front/core/constatns.dart';
+import 'package:front/features/content/presentation/product_model.dart';
 
 class Details extends StatelessWidget {
   final ProductModel product;

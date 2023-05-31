@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:front/client.dart';
-import 'package:front/features/auth/signin.dart';
+import 'package:front/features/auth/data/model/signin.dart';
 
 class AuthModel extends ChangeNotifier {
   Client api = Client();

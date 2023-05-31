@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:front/constatns.dart';
-import 'package:front/features/account/profile_page.dart';
-import 'package:front/features/home/home_page.dart';
-import 'package:front/features/order/order_page.dart';
-import 'package:front/features/products/produst_page.dart';
+import 'package:front/core/constatns.dart';
+import 'package:front/features/auth/presentation/pages/profile_page.dart';
+import 'package:front/features/content/presentation/pages/home_page.dart';
+import 'package:front/features/content/presentation/pages/order_page.dart';
+import 'package:front/features/content/presentation/pages/produst_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 

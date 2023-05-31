@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/constatns.dart';
+import 'package:front/core/constatns.dart';
 
 class Filter extends StatelessWidget {
   const Filter({super.key});
