@@ -1,20 +1,20 @@
 import 'package:front/core/usecase.dart';
 import 'package:front/core/utils/data_state.dart';
-import 'package:front/features/users/data/model/user_model.dart';
 import 'package:front/features/users/domain/entity/user.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
 
-class AuthenticateUsecase implements UseCase<DataState<User>, UserModel> {
+/// Input : the user that want to remove his account
+/// Role : remove the user account and delete his data
+class RemoveUser implements UseCase<void, User> {
   final UserRepository _userRepository;
 
-  AuthenticateUsecase(this._userRepository);
+  RemoveUser(this._userRepository);
   
   @override
-  Future<DataState<User>> call({UserModel? params}) {
+  Future<void> call({User? params}) {
     // TODO: implement call
     throw UnimplementedError();
   }
   
 
-  
 }

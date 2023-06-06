@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:front/features/users/data/model/signin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /**
@@ -187,4 +186,7 @@ Future<String> pingServer() async {
   String getMostLikedProduct() {
     return '';
   }
+}
+
+class SignIn {
 }
