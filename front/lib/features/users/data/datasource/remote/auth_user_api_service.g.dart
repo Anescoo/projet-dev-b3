@@ -69,10 +69,14 @@ class _UserApiService implements UserApiService {
   }
 
   @override
-  Future<String> removeUser(String id) async {
+  Future<String> removeUser(
+    String id,
+    String token,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'DELETE',
@@ -91,10 +95,14 @@ class _UserApiService implements UserApiService {
   }
 
   @override
-  Future<UserModel> updateUser(UserModel usr) async {
+  Future<UserModel> updateUser(
+    UserModel usr,
+    String token,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(usr.toJson());
     final _result = await _dio

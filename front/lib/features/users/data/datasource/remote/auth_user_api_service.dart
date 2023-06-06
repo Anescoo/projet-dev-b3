@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:front/core/constatns.dart';
 import 'package:front/features/users/data/model/user_model.dart';
-import 'package:front/features/users/domain/entity/user.dart';
 import 'package:retrofit/http.dart';
 
 part 'auth_user_api_service.g.dart';
@@ -22,8 +21,10 @@ abstract class UserApiService {
   Future<UserModel> signUp(@Body() UserModel newUser);
 
   @DELETE("/API/V1//removeUsers/{id}")
-  Future<String> removeUser(@Path() String id);
+  Future<String> removeUser(
+      @Path() String id, @Header('Authorization') String token);
 
   @PATCH("/API/V1/update")
-  Future<UserModel> updateUser(@Body() UserModel usr);
+  Future<UserModel> updateUser(
+      @Body() UserModel usr, @Header('Authorization') String token);
 }

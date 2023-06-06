@@ -51,6 +51,8 @@ Fiabilité : si une application est conçue pour supprimer des enregistrements o
 SOLID
 - modifier  une classe c'est l'étendre sans la modifier
 
+utilisation de standard de programmation
+
 # Installation
 IL ya  different package à installer pour faire fonctionner le back et le front.
 
