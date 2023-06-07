@@ -15,7 +15,7 @@ class UserModel extends User {
     String? email,
     String? password,
     bool? isAdmin,
-    List? fav,
+    List<dynamic>? fav,
     String? id,
     this.error,
     this.message,
