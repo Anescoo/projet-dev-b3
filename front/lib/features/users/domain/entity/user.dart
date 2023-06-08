@@ -2,22 +2,22 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  String? token;
+  String token;
   String? usrname;
   String? email;
   String? password;
   bool? isAdmin;
   List? favoriteProducts;
-  String? id;
+  String id;
 
   User({
-    this.token,
+    required this.token,
     this.usrname,
     this.email,
     this.password,
     this.isAdmin,
     this.favoriteProducts,
-    this.id,
+    required this.id,
   });
 
 

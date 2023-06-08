@@ -6,4 +6,6 @@ part 'user_collection.g.dart';
 class UserCollection extends User {
   final Id isarId = Isar.autoIncrement;
   List<int>? favorites;
+
+  UserCollection({required super.token, required super.id});
 }

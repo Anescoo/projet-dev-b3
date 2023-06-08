@@ -95,24 +95,14 @@ int _userCollectionEstimateSize(
       bytesCount += 3 + value.length * 8;
     }
   }
-  {
-    final value = object.id;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.id.length * 3;
   {
     final value = object.password;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
-  {
-    final value = object.token;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.token.length * 3;
   {
     final value = object.usrname;
     if (value != null) {
@@ -145,13 +135,14 @@ UserCollection _userCollectionDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = UserCollection();
+  final object = UserCollection(
+    id: reader.readString(offsets[3]),
+    token: reader.readString(offsets[7]),
+  );
   object.email = reader.readStringOrNull(offsets[0]);
   object.favorites = reader.readLongList(offsets[1]);
-  object.id = reader.readStringOrNull(offsets[3]);
   object.isAdmin = reader.readBoolOrNull(offsets[4]);
   object.password = reader.readStringOrNull(offsets[5]);
-  object.token = reader.readStringOrNull(offsets[7]);
   object.usrname = reader.readStringOrNull(offsets[8]);
   return object;
 }
@@ -170,7 +161,7 @@ P _userCollectionDeserializeProp<P>(
     case 2:
       return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 4:
       return (reader.readBoolOrNull(offset)) as P;
     case 5:
@@ -178,7 +169,7 @@ P _userCollectionDeserializeProp<P>(
     case 6:
       return (reader.readBoolOrNull(offset)) as P;
     case 7:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 8:
       return (reader.readStringOrNull(offset)) as P;
     default:
@@ -651,26 +642,8 @@ extension UserCollectionQueryFilter
     });
   }
 
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      idIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      idIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'id',
-      ));
-    });
-  }
-
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition> idEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -684,7 +657,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       idGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -700,7 +673,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       idLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -715,8 +688,8 @@ extension UserCollectionQueryFilter
   }
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition> idBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1071,26 +1044,8 @@ extension UserCollectionQueryFilter
   }
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      tokenIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'token',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      tokenIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'token',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       tokenEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1104,7 +1059,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       tokenGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1120,7 +1075,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       tokenLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1136,8 +1091,8 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       tokenBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1697,7 +1652,7 @@ extension UserCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserCollection, String?, QQueryOperations> idProperty() {
+  QueryBuilder<UserCollection, String, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
@@ -1721,7 +1676,7 @@ extension UserCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserCollection, String?, QQueryOperations> tokenProperty() {
+  QueryBuilder<UserCollection, String, QQueryOperations> tokenProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'token');
     });

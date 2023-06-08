@@ -1,11 +1,13 @@
 
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 
 abstract class DataState<T>  {
   final T ? data;
-  final DioError ? error;
+  final List? errorMessage;
 
-  DataState({this.data, this.error});
+  DataState({this.data, this.errorMessage});
 }
 
 class DataSuccess<T> extends DataState {
@@ -13,5 +15,5 @@ class DataSuccess<T> extends DataState {
 }
 
 class DataFailed<T> extends DataState {
-  DataFailed(DioError error):super(error: error);
+  DataFailed(List? error):super(errorMessage: error);
 }

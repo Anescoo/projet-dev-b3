@@ -6,25 +6,24 @@ import 'package:front/features/users/domain/entity/user.dart';
 class UserModel extends User {
   final int? statusCode;
   final String? error;
-  final Array? message;
-  final RequestOptions? requestOptions;
-   UserModel({
+  final List? message;
+  UserModel({
     this.statusCode,
-    String? token,
+    this.error,
+    this.message,
+    required super.id,
+    required super.token,
     String? usrname,
     String? email,
     String? password,
     bool? isAdmin,
     List<dynamic>? fav,
-    String? id,
-    this.error,
-    this.message,
-    this.requestOptions
   });
 
   factory UserModel.fromJson(Map<String, dynamic> map) {
     return UserModel(
         token: map['access_token'] ?? '',
+        id: map['userId'] ?? '',
         usrname: map['username'] ?? '',
         email: map['email'] ?? '',
         password: map['password'] ?? '',
