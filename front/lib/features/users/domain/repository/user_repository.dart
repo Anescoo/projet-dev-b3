@@ -6,7 +6,7 @@ abstract class UserRepository {
 
   Future<DataState> connexion(List<String> usr);
 
-  Future<DataState> inscription(List<String> usr,bool isAdmin);
+  Future<DataState> inscription(List<String> usr);
 
   void removeUser(User usr);
 

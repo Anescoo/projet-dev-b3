@@ -36,12 +36,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<DataState> inscription(List<String> usr, bool isAdmin) async {
+  Future<DataState> inscription(List<String> usr) async {
     UserModel newUser = UserModel(
         email: usr[0],
         password: usr[1],
         usrname: usr[2],
-        isAdmin: isAdmin,
+        isAdmin: bool.fromEnvironment(usr[3]),
         id: '',
         token: '');
     UserModel res = await _userApiService.signUp(newUser);
