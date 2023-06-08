@@ -8,7 +8,7 @@ class UserModel extends User {
   final String? error;
   final Array? message;
   final RequestOptions? requestOptions;
-  const UserModel({
+   UserModel({
     this.statusCode,
     String? token,
     String? usrname,

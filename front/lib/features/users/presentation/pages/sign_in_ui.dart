@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:front/core/app.dart';
-import 'package:front/client.dart';
 import 'package:front/features/users/presentation/pages/sign_up_ui.dart';
 import '../components/my_button.dart';
 import '../components/my_text_field.dart';
@@ -19,8 +18,6 @@ class _SignInUiState extends State<SignInUi> {
   final passwordController = TextEditingController();
 
   final emailController = TextEditingController();
-
-  Client api = Client();
 
   @override
   Widget build(BuildContext context) {
