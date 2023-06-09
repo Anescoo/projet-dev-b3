@@ -21,17 +21,21 @@ class UserModel extends User {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> map) {
+    final userMap = map['user'] as Map<String, dynamic>;
+
     return UserModel(
-        token: map['access_token'] ?? '',
-        id: map['userId'] ?? '',
-        usrname: map['username'] ?? '',
-        email: map['email'] ?? '',
-        password: map['password'] ?? '',
-        isAdmin: map['isAdmin'] ?? false,
-        statusCode: map['statusCode'] ?? 0,
-        message: map['message'] ?? [],
-        error: map['error'] ?? '');
+      token: map['access_token'] ?? '',
+      id: userMap['userId'] ?? '',
+      usrname: userMap['userName'] ?? '',
+      email: userMap['email'] ?? '',
+      password: userMap['password'] ?? '',
+      isAdmin: userMap['isAdmin'] ?? false,
+      statusCode: map['statusCode'] ?? 0,
+      message: map['message'] ?? [],
+      error: map['error'] ?? '',
+    );
   }
+
 
   Map<String, dynamic> toJson() {
     return {
