@@ -15,6 +15,7 @@ const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("./../users/users.service");
 const user_entity_1 = require("./../users/entity/user.entity");
 const secureData_1 = require("./secureData");
+const emailDto_1 = require("./../emailDto");
 let AuthService = class AuthService {
     constructor(usersService, jwtService) {
         this.usersService = usersService;
@@ -22,7 +23,9 @@ let AuthService = class AuthService {
     }
     async signIn(userEmail, pass) {
         const security = new secureData_1.SecureData();
-        const user = await this.usersService.findByMail(userEmail);
+        const mail = new emailDto_1.emailDto();
+        mail.email = userEmail;
+        const user = await this.usersService.findByMail(mail);
         const isPasswordMatched = await security.isHashDataMatch(pass, user.password);
         if (!user || !isPasswordMatched) {
             throw new common_1.UnauthorizedException('fail auth');
@@ -30,11 +33,14 @@ let AuthService = class AuthService {
         const payload = { userEmail: user.email, sub: user.userId };
         return {
             access_token: await this.jwtService.signAsync(payload),
+            user: user,
         };
     }
     async signUp(userEmail, pass, name, isAdmin) {
         const security = new secureData_1.SecureData();
-        const userAlreadyExist = await this.usersService.findByMail(userEmail);
+        const mail = new emailDto_1.emailDto();
+        mail.email = userEmail;
+        const userAlreadyExist = await this.usersService.findByMail(mail);
         if (userAlreadyExist) {
             throw new common_1.UnauthorizedException('user already exist');
         }
@@ -48,6 +54,7 @@ let AuthService = class AuthService {
         const payload = { userEmail: newUser.email, sub: newUser.userId };
         return {
             access_token: await this.jwtService.signAsync(payload),
+            user: newUser,
         };
     }
 };
