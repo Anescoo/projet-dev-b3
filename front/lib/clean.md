@@ -1,0 +1,24 @@
+# Implementing clean archi
+
+- config
+  - routes
+  - theme
+- core : share
+  - error
+  - network
+  - usecase
+  - util
+- features
+  - f1
+    - data
+      - datasource : get external data from api or localstorage
+      - models : convert the json data to an entity  
+      - repo : impl of domain repos
+    - domain : business logic of the app
+      - entities: data type and class 
+      - repository * abactract , contract
+      - usecase * bridge between layer eg signin , login : represent the flow of data to and from entity
+    - presentation
+      - bloc * state management 
+      - pages
+      - widgets 

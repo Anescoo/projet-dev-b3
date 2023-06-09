@@ -1,15 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
-import { Repository } from 'typeorm';
-import { User } from './entity/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+import { User } from './entity/user.entity';
+import { CreateUserDto } from './dto/createUserDto';
 
-describe('UsersService', () => {
+describe('UsersController', () => {
+  let controller: UsersController;
   let service: UsersService;
   let repository: Repository<User>;
 
+  const user1 = new User();
+  user1.userId = '1';
+  user1.userName = 'John';
+  user1.email = 'john@example.com';
+  user1.password = 'password';
+  user1.isAdmin = false;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [UsersController],
       providers: [
         UsersService,
         {
@@ -19,90 +30,77 @@ describe('UsersService', () => {
       ],
     }).compile();
 
+    controller = module.get<UsersController>(UsersController);
     service = module.get<UsersService>(UsersService);
     repository = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   describe('createUser', () => {
-    it('should create a user', async () => {
-      const user = new User();
-      user.email = 'test@example.com';
-      user.password = 'password';
-      jest.spyOn(repository, 'save').mockResolvedValue(user);
+    it('should return the created user', async () => {
+      const createUserDto: CreateUserDto = {
+        userName: 'John',
+        email: 'john@example.com',
+        password: 'password',
+        isAdmin: false,
+      };
 
-      const result = await service.createUser(user);
-      expect(repository.save).toHaveBeenCalledWith(user);
-      expect(result).toEqual(user);
+      jest.spyOn(service, 'createUser').mockResolvedValue(user1);
+      const result = await controller.createUser(createUserDto);
+      expect(result).toBe(user1);
     });
   });
 
-  describe('findAll', () => {
+  describe('getAllUsers', () => {
     it('should return an array of users', async () => {
-      const users = [new User(), new User()];
-      jest.spyOn(repository, 'find').mockResolvedValue(users);
-
-      const result = await service.findAll();
-      expect(repository.find).toHaveBeenCalled();
-      expect(result).toEqual(users);
+      jest.spyOn(service, 'findAll').mockResolvedValue([user1]);
+      const result = await controller.getAllUsers();
+      expect(result).toEqual([user1]);
     });
   });
 
-  describe('findById', () => {
-    it('should return a user with the given ID', async () => {
-      const user = new User();
-      user.userId = '550e8400-e29b-41d4-a716-446655440000';
-      jest.spyOn(repository, 'findOneBy').mockResolvedValue(user);
+  describe('getUserById', () => {
+    it('should return the user with the given id', async () => {
+      const id = { id: '1' };
 
-      const result = await service.findById(user.userId);
-      expect(repository.findOneBy).toHaveBeenCalledWith({
-        userId: user.userId,
-      });
-      expect(result).toEqual(user);
+      jest.spyOn(service, 'findById').mockResolvedValue(user1);
+      const result = await controller.getUserById(id);
+      expect(result).toBe(user1);
     });
 
-    it('should return null if no user is found', async () => {
-      jest.spyOn(repository, 'findOneBy').mockResolvedValue(null);
+    it('should return null if the user with the given id is not found', async () => {
+      const id = { id: '999' };
 
-      const result = await service.findById(
-        '550e8400-e29b-41d4-a716-446655440000',
-      );
-      expect(repository.findOneBy).toHaveBeenCalledWith({
-        userId: '550e8400-e29b-41d4-a716-446655440000',
-      });
+      jest.spyOn(service, 'findById').mockResolvedValue(null);
+      const result = await controller.getUserById(id);
       expect(result).toBeNull();
     });
   });
 
-  describe('findByMail', () => {
-    it('should return a user with the given email', async () => {
-      const user = new User();
-      user.email = 'test@example.com';
-      jest.spyOn(repository, 'findOneBy').mockResolvedValue(user);
+  describe('getUserByEmail', () => {
+    it('should return the user with the given email', async () => {
+      const email = { email: 'john@example.com' };
 
-      const result = await service.findByMail(user.email);
-      expect(repository.findOneBy).toHaveBeenCalledWith({ email: user.email });
-      expect(result).toEqual(user);
+      jest.spyOn(service, 'findByMail').mockResolvedValue(user1);
+      const result = await controller.getUserByEmail(email);
+      expect(result).toBe(user1);
     });
 
-    it('should return null if no user is found', async () => {
-      jest.spyOn(repository, 'findOneBy').mockResolvedValue(null);
+    it('should return null if the user with the given email is not found', async () => {
+      const email = { email: 'notfound@example.com' };
 
-      const result = await service.findByMail('test@example.com');
-      expect(repository.findOneBy).toHaveBeenCalledWith({
-        email: 'test@example.com',
-      });
+      jest.spyOn(service, 'findByMail').mockResolvedValue(null);
+      const result = await controller.getUserByEmail(email);
       expect(result).toBeNull();
     });
   });
 
-  describe('remove', () => {
-    it('should remove a user with the given ID', async () => {
-      const userId = '550e8400-e29b-41d4-a716-446655440000';
-      jest.spyOn(repository, 'delete').mockResolvedValue(undefined);
+  describe('removeUser', () => {
+    it('should call the service method to remove the user with the given id', async () => {
+      const id = '1';
+
+      jest.spyOn(service, 'remove').mockResolvedValue(undefined);
+      await controller.removeUser(id);
+      expect(service.remove).toHaveBeenCalledWith(id);
     });
   });
 });

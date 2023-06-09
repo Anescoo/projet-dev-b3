@@ -29,12 +29,12 @@ let UsersService = class UsersService {
     }
     findById(id) {
         return this.usersRepository.findOneBy({
-            userId: id,
+            userId: id.id,
         });
     }
     findByMail(email) {
         return this.usersRepository.findOneBy({
-            email: email,
+            email: email.email,
         });
     }
     async remove(id) {
