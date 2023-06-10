@@ -12,11 +12,13 @@ class UserLocalService implements UserLocalRepository {
   void addUser(User usr) async {
     var instance = await isar.db;
 
-    final newUser = UserCollection(id: usr.id,token: usr.token)
-      ..usrname = usr.usrname
-      ..email = usr.email
-      ..password = usr.password
-      ..isAdmin = usr.isAdmin;
+    final newUser = UserCollection(
+        token: usr.token,
+        id: usr.id,
+        usrname: usr.usrname,
+        email: usr.email,
+        password: usr.password,
+        isAdmin: usr.isAdmin);
 
     await instance.writeTxn(() async {
       await instance.userCollections.put(newUser); // Insertion & modification

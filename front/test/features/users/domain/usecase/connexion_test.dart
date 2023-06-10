@@ -55,7 +55,7 @@ void main() {
         email: usrLogginData[0],
         password: usrLogginData[1],
         id: '',
-        token: '',
+        token: '', isAdmin: false, usrname: '',
       );
 
       // Configurez le comportement simulé du UserRepository.connexion()

@@ -22,43 +22,38 @@ const UserCollectionSchema = CollectionSchema(
       name: r'email',
       type: IsarType.string,
     ),
-    r'favorites': PropertySchema(
-      id: 1,
-      name: r'favorites',
-      type: IsarType.longList,
-    ),
     r'hashCode': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'hashCode',
       type: IsarType.long,
     ),
     r'id': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'id',
       type: IsarType.string,
     ),
     r'isAdmin': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'isAdmin',
       type: IsarType.bool,
     ),
     r'password': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'password',
       type: IsarType.string,
     ),
     r'stringify': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'stringify',
       type: IsarType.bool,
     ),
     r'token': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'token',
       type: IsarType.string,
     ),
     r'usrname': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'usrname',
       type: IsarType.string,
     )
@@ -83,32 +78,11 @@ int _userCollectionEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  {
-    final value = object.email;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.favorites;
-    if (value != null) {
-      bytesCount += 3 + value.length * 8;
-    }
-  }
+  bytesCount += 3 + object.email.length * 3;
   bytesCount += 3 + object.id.length * 3;
-  {
-    final value = object.password;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.password.length * 3;
   bytesCount += 3 + object.token.length * 3;
-  {
-    final value = object.usrname;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
+  bytesCount += 3 + object.usrname.length * 3;
   return bytesCount;
 }
 
@@ -119,14 +93,13 @@ void _userCollectionSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.email);
-  writer.writeLongList(offsets[1], object.favorites);
-  writer.writeLong(offsets[2], object.hashCode);
-  writer.writeString(offsets[3], object.id);
-  writer.writeBool(offsets[4], object.isAdmin);
-  writer.writeString(offsets[5], object.password);
-  writer.writeBool(offsets[6], object.stringify);
-  writer.writeString(offsets[7], object.token);
-  writer.writeString(offsets[8], object.usrname);
+  writer.writeLong(offsets[1], object.hashCode);
+  writer.writeString(offsets[2], object.id);
+  writer.writeBool(offsets[3], object.isAdmin);
+  writer.writeString(offsets[4], object.password);
+  writer.writeBool(offsets[5], object.stringify);
+  writer.writeString(offsets[6], object.token);
+  writer.writeString(offsets[7], object.usrname);
 }
 
 UserCollection _userCollectionDeserialize(
@@ -136,14 +109,13 @@ UserCollection _userCollectionDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = UserCollection(
-    id: reader.readString(offsets[3]),
-    token: reader.readString(offsets[7]),
+    email: reader.readString(offsets[0]),
+    id: reader.readString(offsets[2]),
+    isAdmin: reader.readBool(offsets[3]),
+    password: reader.readString(offsets[4]),
+    token: reader.readString(offsets[6]),
+    usrname: reader.readString(offsets[7]),
   );
-  object.email = reader.readStringOrNull(offsets[0]);
-  object.favorites = reader.readLongList(offsets[1]);
-  object.isAdmin = reader.readBoolOrNull(offsets[4]);
-  object.password = reader.readStringOrNull(offsets[5]);
-  object.usrname = reader.readStringOrNull(offsets[8]);
   return object;
 }
 
@@ -155,23 +127,21 @@ P _userCollectionDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringOrNull(offset)) as P;
-    case 1:
-      return (reader.readLongList(offset)) as P;
-    case 2:
-      return (reader.readLong(offset)) as P;
-    case 3:
       return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readString(offset)) as P;
+    case 3:
+      return (reader.readBool(offset)) as P;
     case 4:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readStringOrNull(offset)) as P;
-    case 6:
       return (reader.readBoolOrNull(offset)) as P;
+    case 6:
+      return (reader.readString(offset)) as P;
     case 7:
       return (reader.readString(offset)) as P;
-    case 8:
-      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -270,26 +240,8 @@ extension UserCollectionQueryWhere
 extension UserCollectionQueryFilter
     on QueryBuilder<UserCollection, UserCollection, QFilterCondition> {
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      emailIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'email',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      emailIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'email',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       emailEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -303,7 +255,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       emailGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -319,7 +271,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       emailLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -335,8 +287,8 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       emailBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -420,169 +372,6 @@ extension UserCollectionQueryFilter
         property: r'email',
         value: '',
       ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'favorites',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'favorites',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesElementEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'favorites',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesElementGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'favorites',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesElementLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'favorites',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesElementBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'favorites',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        length,
-        true,
-        length,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        0,
-        true,
-        0,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        0,
-        false,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        0,
-        true,
-        length,
-        include,
-      );
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        length,
-        include,
-        999999,
-        true,
-      );
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      favoritesLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.listLength(
-        r'favorites',
-        lower,
-        includeLower,
-        upper,
-        includeUpper,
-      );
     });
   }
 
@@ -778,25 +567,7 @@ extension UserCollectionQueryFilter
   }
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      isAdminIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'isAdmin',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      isAdminIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'isAdmin',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      isAdminEqualTo(bool? value) {
+      isAdminEqualTo(bool value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isAdmin',
@@ -862,26 +633,8 @@ extension UserCollectionQueryFilter
   }
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      passwordIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'password',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      passwordIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'password',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       passwordEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -895,7 +648,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       passwordGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -911,7 +664,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       passwordLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -927,8 +680,8 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       passwordBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1180,26 +933,8 @@ extension UserCollectionQueryFilter
   }
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      usrnameIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'usrname',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
-      usrnameIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'usrname',
-      ));
-    });
-  }
-
-  QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       usrnameEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1213,7 +948,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       usrnameGreaterThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1229,7 +964,7 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       usrnameLessThan(
-    String? value, {
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1245,8 +980,8 @@ extension UserCollectionQueryFilter
 
   QueryBuilder<UserCollection, UserCollection, QAfterFilterCondition>
       usrnameBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1570,13 +1305,6 @@ extension UserCollectionQueryWhereDistinct
     });
   }
 
-  QueryBuilder<UserCollection, UserCollection, QDistinct>
-      distinctByFavorites() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'favorites');
-    });
-  }
-
   QueryBuilder<UserCollection, UserCollection, QDistinct> distinctByHashCode() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'hashCode');
@@ -1633,16 +1361,9 @@ extension UserCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserCollection, String?, QQueryOperations> emailProperty() {
+  QueryBuilder<UserCollection, String, QQueryOperations> emailProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'email');
-    });
-  }
-
-  QueryBuilder<UserCollection, List<int>?, QQueryOperations>
-      favoritesProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'favorites');
     });
   }
 
@@ -1658,13 +1379,13 @@ extension UserCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserCollection, bool?, QQueryOperations> isAdminProperty() {
+  QueryBuilder<UserCollection, bool, QQueryOperations> isAdminProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isAdmin');
     });
   }
 
-  QueryBuilder<UserCollection, String?, QQueryOperations> passwordProperty() {
+  QueryBuilder<UserCollection, String, QQueryOperations> passwordProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'password');
     });
@@ -1682,7 +1403,7 @@ extension UserCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserCollection, String?, QQueryOperations> usrnameProperty() {
+  QueryBuilder<UserCollection, String, QQueryOperations> usrnameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'usrname');
     });

@@ -20,24 +20,39 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AUTH_REQUEST_MAPPING.SIGN_IN)
-  signIn(
+  async signIn(
     @Body() signInDto: SignInDto,
-  ): Promise<{ access_token: string; user: User }> {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  ): Promise<{ access_token: string; user: User; statusCode: number }> {
+    const result = await this.authService.signIn(
+      signInDto.email,
+      signInDto.password,
+    );
+
+    return {
+      access_token: result.access_token,
+      user: result.user,
+      statusCode: HttpStatus.OK,
+    };
   }
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post(AUTH_REQUEST_MAPPING.SIGN_UP)
-  signUp(
+  async signUp(
     @Body() signUpDto: SignUpDto,
-  ): Promise<{ access_token: string; user: User }> {
-    return this.authService.signUp(
+  ): Promise<{ access_token: string; user: User; statusCode: number }> {
+    const result = await this.authService.signUp(
       signUpDto.email,
       signUpDto.password,
       signUpDto.userName,
       signUpDto.isAdmin,
     );
+
+    return {
+      access_token: result.access_token,
+      user: result.user,
+      statusCode: HttpStatus.OK,
+    };
   }
   @Get('profile')
   getProfile(@Request() req) {

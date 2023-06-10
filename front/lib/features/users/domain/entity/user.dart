@@ -2,24 +2,21 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  String token;
-  String? usrname;
-  String? email;
-  String? password;
-  bool? isAdmin;
-  List? favoriteProducts;
-  String id;
+  final String token;
+  final String usrname;
+  final String email;
+  final String password;
+  final bool isAdmin;
+  final String id;
 
-  User({
-    required this.token,
-    this.usrname,
-    this.email,
-    this.password,
-    this.isAdmin,
-    this.favoriteProducts,
-    required this.id,
-  });
-
+  const User(
+      {required this.id,
+      required this.token,
+      required this.usrname,
+      required this.email,
+      required this.password,
+      required this.isAdmin,
+      });
 
   @override
   // implement props: set the variables used for object comparaison

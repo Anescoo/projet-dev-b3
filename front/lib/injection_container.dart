@@ -5,29 +5,28 @@ import 'package:front/features/users/data/datasource/local/user_local_service.da
 import 'package:front/features/users/data/datasource/remote/auth_user_api_service.dart';
 import 'package:front/features/users/data/repository/user_repository_impl.dart';
 import 'package:front/features/users/domain/repository/user_local_repository.dart';
-import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
 import 'package:front/features/users/domain/usecase/connect_user.dart';
 import 'package:get_it/get_it.dart';
 
-final s1 = GetIt.instance;
+final getIt = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   ///* External dependencies
-  s1.registerSingleton<Dio>(Dio());
-  s1.registerSingleton<IsarService>(IsarService());
+  getIt.registerSingleton<Dio>(Dio());
+  getIt.registerSingleton<IsarService>(IsarService());
 
   ///* services
-  s1.registerSingleton<UserApiService>(UserApiService(s1()));
-  s1.registerSingleton<UserLocalService>(UserLocalService(s1()));
+  getIt.registerSingleton<UserApiService>(UserApiService(getIt()));
+  getIt.registerSingleton<UserLocalService>(UserLocalService(getIt()));
 
   ///* repositories
-  s1.registerSingleton<UserRepository>(UserRepositoryImpl(s1(), s1()));
-  s1.registerSingleton<UserLocalRepository>(UserLocalService(s1()));
+  getIt.registerSingleton<UserRepository>(UserRepositoryImpl(getIt(), getIt()));
+  getIt.registerSingleton<UserLocalRepository>(UserLocalService(getIt()));
 
   ///* usecases
-  s1.registerSingleton<ConnectUser>(ConnectUser(s1(), s1()));
+  getIt.registerSingleton<ConnectUser>(ConnectUser(getIt(), getIt()));
 
   ///* State
-  s1.registerFactory(() => AppState());
+  getIt.registerFactory(() => AppState());
 }

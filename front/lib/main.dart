@@ -8,7 +8,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => s1.get<AppState>()),// the Appstate instance is available in all the app thks to Provider
+        ChangeNotifierProvider(create: (context) => getIt.get<AppState>()),// the Appstate instance is available in all the app thks to Provider
       ],
       child: const MyApp(),
     ),
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             .copyWith(background: Colors.grey),
       ),
-      home: SignInUi(),
+      home: SignInUi(getIt: getIt,),
       // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }
