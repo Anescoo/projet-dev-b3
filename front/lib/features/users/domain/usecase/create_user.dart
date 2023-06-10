@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:front/core/usecase.dart';
 import 'package:front/core/utils/data_state.dart';
 import 'package:front/features/users/domain/entity/user.dart';
-import 'package:front/features/users/domain/repository/user_loacal_repository.dart';
+import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
 
 /// Input : list of new user data {"email","password","userName","isAdmin"} that whant to ceate an account

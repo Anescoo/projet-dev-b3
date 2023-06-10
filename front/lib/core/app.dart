@@ -8,6 +8,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
+import './../injection_container.dart';
 
 //! the bottom menu is not sync to the page when the user rollback. The page will change but not the state of the buttom menue
 class App extends StatelessWidget {

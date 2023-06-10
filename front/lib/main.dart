@@ -8,7 +8,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppState()),
+        ChangeNotifierProvider(create: (context) => s1.get<AppState>()),// the Appstate instance is available in all the app thks to Provider
       ],
       child: const MyApp(),
     ),

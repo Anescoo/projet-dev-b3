@@ -9,7 +9,7 @@ import 'dart:async' as _i4;
 
 import 'package:front/core/utils/data_state.dart' as _i2;
 import 'package:front/features/users/domain/entity/user.dart' as _i5;
-import 'package:front/features/users/domain/repository/user_loacal_repository.dart'
+import 'package:front/features/users/domain/repository/user_local_repository.dart'
     as _i6;
 import 'package:front/features/users/domain/repository/user_repository.dart'
     as _i3;
