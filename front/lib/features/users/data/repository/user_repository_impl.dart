@@ -21,8 +21,7 @@ class UserRepositoryImpl implements UserRepository {
     if (res.statusCode == 200) {
       User loggedUser = res; //get all the userdata
       _userLocalService.addUser(loggedUser);
-      return Future.value(
-          DataSuccess(loggedUser) as FutureOr<DataState<User>>?);
+      return Future.value(DataSuccess<User>(loggedUser));
     } else if (res.statusCode == 0) {
       print("cant get statuscode");
     }
@@ -48,7 +47,7 @@ class UserRepositoryImpl implements UserRepository {
     if (res.statusCode == 200) {
       User user = res;
       _userLocalService.addUser(user);
-      return Future.value(DataSuccess(user) as FutureOr<DataState<User>>?);
+      return Future.value(DataSuccess<User>(user));
     } else if (res.statusCode == 0) {
       print("cant get statuscode");
     }
@@ -71,11 +70,12 @@ class UserRepositoryImpl implements UserRepository {
         id: usr.id,
         token: usr.token);
     _userLocalService.addUser(usr);
-    UserModel res = await _userApiService.updateUser(currentUser, currentUser.token);
+    UserModel res =
+        await _userApiService.updateUser(currentUser, currentUser.token);
     if (res.statusCode == 200) {
       User user = res;
       return Future.value(DataSuccess(user));
-    }else if (res.statusCode == 0) {
+    } else if (res.statusCode == 0) {
       print("cant get statuscode");
     }
     return Future.value(DataFailed(res.message));
