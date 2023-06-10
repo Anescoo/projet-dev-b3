@@ -18,6 +18,17 @@ export class ProductController {
   getAllProduct(): Promise<Product[]> {
     return this.productService.findAll();
   }
+
+  @Get(PRODUCT_REQUEST_MAPPING.GET_SOME_PRODUCTS)
+  getSomeProducts(): Promise<Product[]> {
+    return this.productService.findSomeProducts();
+  }
+
+//   @Get(PRODUCT_REQUEST_MAPPING.GET_MOST_LIKED_PRODUCTS)
+//   getMostLikedProducts(): Promise<Product[]> {
+//     return this.productService.findMostLikedProducts();
+//   }
+  
   @Get(PRODUCT_REQUEST_MAPPING.GET_PRODUCT_BY_ID)
   getProductById(id: string): Promise<Product | null> {
     return this.productService.findById(id);

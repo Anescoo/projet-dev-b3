@@ -1,10 +1,11 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { USER_REQUEST_MAPPING, ROUTEPATH } from './../constants';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
 import { idDto } from './../idDto';
 import { emailDto } from './../emailDto';
 import { CreateUserDto } from './dto/createUserDto';
+// import { AuthGuard } from '../auth/auth.guard';
 
 @Controller(ROUTEPATH)
 export class UsersController {
@@ -31,4 +32,11 @@ export class UsersController {
   removeUser(@Param() id: string): Promise<void> {
     return this.usersService.remove(id);
   }
+
+//   @UseGuards(AuthGuard)
+//   @Delete(USER_REQUEST_MAPPING.REMOVE_ACCOUNT)
+//   removeAccount(@Param() params: { id: string }): Promise<void> {
+//     const userId = params.id;
+//     return this.usersService.removeAccount(userId);
+//   }
 }

@@ -22,6 +22,8 @@ export const FAVORITE_REQUEST_MAPPING = {
 export const PRODUCT_REQUEST_MAPPING = {
   CREATE_PRODUCT: '/create_product',
   GET_ALL_PRODUCT: '/getAllProduct',
+  GET_SOME_PRODUCTS: '/getSomeProducts',
+  GET_MOST_LIKED_PRODUCTS: '/getMostLikedProducts',
   GET_PRODUCT_BY_ID: '/getProductById',
   REMOVE_PRODUCT: '/removeProduct',
 };
@@ -32,6 +34,7 @@ export const USER_REQUEST_MAPPING = {
   GET_USER_BY_ID: '/getUsersById/:id',
   GET_USER_BY_EMAIL: '/getUserByEmail/:email',
   REMOVE_USER: '/removeUsers/:id',
+  REMOVE_ACCOUNT: '/removeAccount',
 };
 
 

@@ -23,8 +23,8 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    createUser(UserDto) {
-        return this.usersService.createUser(UserDto);
+    createUser(user) {
+        return this.usersService.createUser(user);
     }
     getAllUsers() {
         return this.usersService.findAll();
@@ -41,7 +41,6 @@ let UsersController = class UsersController {
 };
 __decorate([
     (0, common_1.Post)(constants_1.USER_REQUEST_MAPPING.CREATE_USER),
-    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createUserDto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
