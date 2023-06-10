@@ -85,3 +85,7 @@ Le pattern de conception "Observer" : Ce pattern permet de créer des notificati
 Le pattern de conception "Middleware" : Ce pattern permet d'intercepter les requêtes et les réponses HTTP pour y apporter des modifications ou des validations. Dans NestJS, cela est utilisé pour créer des middlewares pour authentifier les utilisateurs, vérifier les autorisations d'accès, etc.
 
 En utilisant ces patterns de conception, NestJS permet de créer des applications modulaires, maintenables et évolutives, tout en améliorant la lisibilité et la réutilisabilité du code.
+
+es UUID sont des identifiants universellement uniques qui sont générés de manière aléatoire ou en fonction de certaines informations. Chaque version d'UUID a un format spécifique et une méthode de génération différente.
+
+La version 4 des UUID est générée de manière aléatoire. Elle utilise des valeurs aléatoires pour les bits spécifiques de l'UUID. Ce type d'UUID est largement utilisé et est considéré comme sûr pour une utilisation générale.

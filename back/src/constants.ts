@@ -29,9 +29,9 @@ export const PRODUCT_REQUEST_MAPPING = {
 export const USER_REQUEST_MAPPING = {
   CREATE_USER: '/create_user',
   GET_ALL_USER: '/getAllUsers',
-  GET_USER_BY_ID: '/getUsersById',
-  GET_USER_BY_EMAIL: '/getUserByEmail',
-  REMOVE_USER: '/removeUsers',
+  GET_USER_BY_ID: '/getUsersById/:id',
+  GET_USER_BY_EMAIL: '/getUserByEmail/:email',
+  REMOVE_USER: '/removeUsers/:id',
 };
 
 

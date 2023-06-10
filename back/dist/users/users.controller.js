@@ -11,12 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const constants_1 = require("./../constants");
 const users_service_1 = require("./users.service");
+const idDto_1 = require("./../idDto");
+const emailDto_1 = require("./../emailDto");
 const createUserDto_1 = require("./dto/createUserDto");
 let UsersController = class UsersController {
     constructor(usersService) {
@@ -42,7 +43,7 @@ __decorate([
     (0, common_1.Post)(constants_1.USER_REQUEST_MAPPING.CREATE_USER),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof createUserDto_1.CreateUserDto !== "undefined" && createUserDto_1.CreateUserDto) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [createUserDto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "createUser", null);
 __decorate([
@@ -53,18 +54,21 @@ __decorate([
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([
     (0, common_1.Get)(constants_1.USER_REQUEST_MAPPING.GET_USER_BY_ID),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [idDto_1.idDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUserById", null);
 __decorate([
     (0, common_1.Get)(constants_1.USER_REQUEST_MAPPING.GET_USER_BY_EMAIL),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [emailDto_1.emailDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUserByEmail", null);
 __decorate([
     (0, common_1.Delete)(constants_1.USER_REQUEST_MAPPING.REMOVE_USER),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
