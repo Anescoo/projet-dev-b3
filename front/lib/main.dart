@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:front/core/app_model.dart';
+import 'package:front/core/app_state.dart';
 import 'package:front/features/users/presentation/pages/sign_in_ui.dart';
 import 'package:provider/provider.dart';
-void main() {
+import 'injection_container.dart';
+void main() async {
+  await initializeDependencies();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppModel()),
+        ChangeNotifierProvider(create: (context) => AppState()),
       ],
       child: const MyApp(),
     ),
