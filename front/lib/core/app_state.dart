@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppModel extends ChangeNotifier {
+class AppState extends ChangeNotifier {
   late int routIndex = 0;
 
   void setRoutIndex(int index){

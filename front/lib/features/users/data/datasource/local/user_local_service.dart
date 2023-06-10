@@ -1,7 +1,7 @@
 import 'package:front/core/collections/user_collection.dart';
 import 'package:front/core/isar_service.dart';
 import 'package:front/features/users/domain/entity/user.dart';
-import 'package:front/features/users/domain/repository/user_loacal_repository.dart';
+import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:isar/isar.dart';
 
 class UserLocalService implements UserLocalRepository {
@@ -12,11 +12,13 @@ class UserLocalService implements UserLocalRepository {
   void addUser(User usr) async {
     var instance = await isar.db;
 
-    final newUser = UserCollection(id: usr.id,token: usr.token)
-      ..usrname = usr.usrname
-      ..email = usr.email
-      ..password = usr.password
-      ..isAdmin = usr.isAdmin;
+    final newUser = UserCollection(
+        token: usr.token,
+        id: usr.id,
+        usrname: usr.usrname,
+        email: usr.email,
+        password: usr.password,
+        isAdmin: usr.isAdmin);
 
     await instance.writeTxn(() async {
       await instance.userCollections.put(newUser); // Insertion & modification

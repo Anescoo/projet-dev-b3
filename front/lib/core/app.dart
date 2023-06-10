@@ -7,14 +7,15 @@ import 'package:front/features/content/presentation/pages/produst_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
-import 'app_model.dart';
+import 'app_state.dart';
+import './../injection_container.dart';
 
 //! the bottom menu is not sync to the page when the user rollback. The page will change but not the state of the buttom menue
 class App extends StatelessWidget {
   const App({super.key});
 
-  Widget getWidget(context, AppModel appModel) {
-    switch (appModel.currentRoutIndex) {
+  Widget getWidget(context, AppState appState) {
+    switch (appState.currentRoutIndex) {
       case 0:
         return const Home();
       case 1:
@@ -31,10 +32,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Consumer<AppModel>(
-            builder: (context, appModel, child) => Stack(children: [
+        child: Consumer<AppState>(
+            builder: (context, appState, child) => Stack(children: [
                   Container(
-                    child: getWidget(context,appModel),
+                    child: getWidget(context,appState),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -51,28 +52,28 @@ class App extends StatelessWidget {
                               icon: Icons.home,
                               text: 'Home',
                               onPressed: () {
-                                appModel.setRoutIndex(0);
+                                appState.setRoutIndex(0);
                               },
                             ),
                             GButton(
                               icon: Icons.window,
                               text: 'Produits',
                               onPressed: () {
-                                appModel.setRoutIndex(1);
+                                appState.setRoutIndex(1);
                               },
                             ),
                             GButton(
                               icon: Icons.shopping_bag_rounded,
                               text: 'Orders',
                               onPressed: () {
-                                appModel.setRoutIndex(2);
+                                appState.setRoutIndex(2);
                               },
                             ),
                             GButton(
                               icon: Icons.account_circle,
                               text: 'Profile',
                               onPressed: () {
-                                appModel.setRoutIndex(3);
+                                appState.setRoutIndex(3);
                               },
                             )
                           ],

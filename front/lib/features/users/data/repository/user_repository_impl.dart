@@ -16,7 +16,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<DataState> connexion(List<String> usr) async {
     UserModel user =
-        UserModel(email: usr[0], password: usr[1], id: '', token: '');
+        UserModel(email: usr[0], password: usr[1], id: '', token: '', isAdmin: false, usrname: '');
     UserModel res = await _userApiService.signIn(user);
     if (res.statusCode == 200) {
       User loggedUser = res; //get all the userdata

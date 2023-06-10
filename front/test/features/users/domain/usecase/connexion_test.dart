@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:front/core/utils/data_state.dart';
 import 'package:front/features/users/data/model/user_model.dart';
 import 'package:front/features/users/domain/entity/user.dart';
-import 'package:front/features/users/domain/repository/user_loacal_repository.dart';
+import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
 import 'package:front/features/users/domain/usecase/connect_user.dart';
 import 'package:mockito/annotations.dart';
@@ -55,7 +55,7 @@ void main() {
         email: usrLogginData[0],
         password: usrLogginData[1],
         id: '',
-        token: '',
+        token: '', isAdmin: false, usrname: '',
       );
 
       // Configurez le comportement simulé du UserRepository.connexion()

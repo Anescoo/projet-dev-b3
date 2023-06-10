@@ -1,23 +1,22 @@
-import 'dart:ffi';
-
-import 'package:dio/dio.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:front/features/users/domain/entity/user.dart';
 
 class UserModel extends User {
   final int? statusCode;
   final String? error;
   final List? message;
-  UserModel({
+  final String? modelToken;
+  const UserModel({
     this.statusCode,
     this.error,
     this.message,
+    this.modelToken,
     required super.id,
     required super.token,
-    String? usrname,
-    String? email,
-    String? password,
-    bool? isAdmin,
-    List<dynamic>? fav,
+    required super.usrname,
+    required super.email,
+    required super.password,
+    required super.isAdmin,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> map) {
@@ -35,7 +34,6 @@ class UserModel extends User {
       error: map['error'] ?? '',
     );
   }
-
 
   Map<String, dynamic> toJson() {
     return {
