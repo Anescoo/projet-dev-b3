@@ -23,11 +23,21 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    signIn(signInDto) {
-        return this.authService.signIn(signInDto.email, signInDto.password);
+    async signIn(signInDto) {
+        const result = await this.authService.signIn(signInDto.email, signInDto.password);
+        return {
+            access_token: result.access_token,
+            user: result.user,
+            statusCode: common_1.HttpStatus.OK,
+        };
     }
-    signUp(signUpDto) {
-        return this.authService.signUp(signUpDto.email, signUpDto.password, signUpDto.userName, signUpDto.isAdmin);
+    async signUp(signUpDto) {
+        const result = await this.authService.signUp(signUpDto.email, signUpDto.password, signUpDto.userName, signUpDto.isAdmin);
+        return {
+            access_token: result.access_token,
+            user: result.user,
+            statusCode: common_1.HttpStatus.OK,
+        };
     }
     getProfile(req) {
         return req.user;

@@ -8,10 +8,12 @@ export declare class AuthController {
     signIn(signInDto: SignInDto): Promise<{
         access_token: string;
         user: User;
+        statusCode: number;
     }>;
     signUp(signUpDto: SignUpDto): Promise<{
         access_token: string;
         user: User;
+        statusCode: number;
     }>;
     getProfile(req: any): any;
 }
