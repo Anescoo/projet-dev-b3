@@ -21,11 +21,11 @@ class UserRepositoryImpl implements UserRepository {
     if (res.statusCode == 200) {
       User loggedUser = res; //get all the userdata
       _userLocalService.addUser(loggedUser);
-      return Future.value(DataSuccess<User>(loggedUser));
+      return DataSuccess<User>(loggedUser);
     } else if (res.statusCode == 0) {
       print("cant get statuscode");
     }
-    return Future.value(DataFailed(res.message));
+    return DataFailed(res.message);
   }
 
   @override
@@ -47,11 +47,11 @@ class UserRepositoryImpl implements UserRepository {
     if (res.statusCode == 200) {
       User user = res;
       _userLocalService.addUser(user);
-      return Future.value(DataSuccess<User>(user));
+      return DataSuccess<User>(user);
     } else if (res.statusCode == 0) {
       print("cant get statuscode");
     }
-    return Future.value(DataFailed(res.message));
+    return DataFailed(res.message);
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:front/features/users/data/repository/user_repository_impl.dart';
 import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
 import 'package:front/features/users/domain/usecase/connect_user.dart';
+import 'package:front/features/users/domain/usecase/create_user.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -26,6 +27,7 @@ Future<void> initializeDependencies() async {
 
   ///* usecases
   getIt.registerSingleton<ConnectUser>(ConnectUser(getIt(), getIt()));
+  getIt.registerSingleton<CreateUser>(CreateUser(getIt(),getIt()));
 
   ///* State
   getIt.registerFactory(() => AppState());

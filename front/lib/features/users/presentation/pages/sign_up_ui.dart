@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/features/users/domain/usecase/create_user.dart';
 import 'package:front/features/users/presentation/components/my_button.dart';
 import 'package:front/features/users/presentation/components/my_text_field.dart';
 import 'package:front/features/users/presentation/components/square_tile.dart';
@@ -9,7 +10,7 @@ import '../../../../core/app.dart';
 //! réglé le overflow
 class SignUp extends StatelessWidget {
   late var getIt;
-  SignUp({Key? key,required this.getIt}) : super(key: key);
+  SignUp({Key? key, required this.getIt}) : super(key: key);
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -17,6 +18,8 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CreateUser createUser = getIt<CreateUser>();
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -61,6 +64,12 @@ class SignUp extends StatelessWidget {
               MyButton(
                 name: "Inscrivez vous",
                 onTap: () {
+                  createUser(params: [
+                    emailController.text,
+                    passwordController.text,
+                    usernameController.text,
+                    "false"
+                  ]);//! I don't have a admin dashbord so i register all users as not-admin for know
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const App(),
                   ));
@@ -69,15 +78,15 @@ class SignUp extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                         child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        )),
+                      thickness: 1,
+                      color: Colors.grey,
+                    )),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
@@ -87,19 +96,19 @@ class SignUp extends StatelessWidget {
                     ),
                     Expanded(
                         child: Divider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        )),
+                      thickness: 1,
+                      color: Colors.grey,
+                    )),
                   ],
                 ),
               ),
               const SizedBox(
                 height: 3,
               ),
-              Center(
+              const Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [SquareTile(imagePath: "asset/google.png")],
+                  children: [SquareTile(imagePath: "asset/google.png")],
                 ),
               ),
               const SizedBox(
@@ -115,7 +124,9 @@ class SignUp extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SignInUi(getIt: getIt,),
+                        builder: (context) => SignInUi(
+                          getIt: getIt,
+                        ),
                       ));
                     },
                     child: const Text(
