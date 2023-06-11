@@ -8,7 +8,7 @@ class UserCollection extends User {
   final Id isarId = Isar.autoIncrement;
   // List<int>? favorites; !FIX
 
-  UserCollection(
+  const UserCollection(
       {required super.token,
       required super.id,
       required super.usrname,

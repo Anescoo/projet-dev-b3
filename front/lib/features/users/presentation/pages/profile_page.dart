@@ -28,6 +28,11 @@ class Profile extends StatelessWidget {
             onPressed: () {},
           ),
           ProfileOption(
+            icon: Icons.heat_pump_rounded,
+            option: 'Favorit',
+            onPressed: () {},
+          ),
+          ProfileOption(
             icon: Icons.settings,
             option: 'Paramètre',
             onPressed: () {},
@@ -37,4 +42,3 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
