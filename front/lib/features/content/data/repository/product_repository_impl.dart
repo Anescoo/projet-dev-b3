@@ -4,7 +4,6 @@ import 'package:front/features/content/data/datasource/remote/product_api_servic
 import 'package:front/features/content/data/model/product_model.dart';
 import 'package:front/features/content/domain/entity/product.dart';
 import 'package:front/features/content/domain/repository/product_repository.dart';
-import 'package:front/features/users/domain/entity/user.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductApiService _productApiService;
