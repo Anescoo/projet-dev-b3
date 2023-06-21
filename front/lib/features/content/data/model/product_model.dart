@@ -1,5 +1,4 @@
 import 'package:front/features/content/domain/entity/product.dart';
-import 'package:front/features/users/data/model/user_model.dart';
 
 class ProductModel extends Product {
   const ProductModel(

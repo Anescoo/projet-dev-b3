@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       case 0:
         return const Home();
       case 1:
-        return const Product();
+        return  ProductPage();
       case 2:
         return const Order();
       case 3:

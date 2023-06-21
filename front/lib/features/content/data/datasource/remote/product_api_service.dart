@@ -10,7 +10,7 @@ abstract class ProductApiService {
   factory ProductApiService(Dio dio) = _ProductApiService;
 
   @GET("/getAllProduct")
-  Future<ProductModel> getProductAllProducts(@Header('Authorization') String token);
+  Future<List<ProductModel>> getAllProducts(@Header('Authorization') String token);
 
   // @GET("/getAllProduct")
   // Future<ProductModel> getSomeProducts

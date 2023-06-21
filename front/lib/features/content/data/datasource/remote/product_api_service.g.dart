@@ -21,14 +21,14 @@ class _ProductApiService implements ProductApiService {
   String? baseUrl;
 
   @override
-  Future<ProductModel> getProductAllProducts(String token) async {
+  Future<List<ProductModel>> getAllProducts(String token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ProductModel>(Options(
+        .fetch<List<dynamic>>(_setStreamType<List<ProductModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -40,7 +40,9 @@ class _ProductApiService implements ProductApiService {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ProductModel.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
