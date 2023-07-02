@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:front/core/constatns.dart';
-import 'package:front/features/content/presentation/product_model.dart';
+import 'package:front/features/content/domain/entity/product.dart';
 
 class Details extends StatelessWidget {
-  final ProductModel product;
+  final Product product;
 
   const Details({
     Key? key,
@@ -27,7 +27,7 @@ class Details extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
-              "${product.prince} €",
+              "${product.price} €",
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             TextButton(onPressed: () {}, child: Text('add to cardt'))

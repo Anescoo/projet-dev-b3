@@ -13,7 +13,7 @@ class _UserApiService implements UserApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://nest-p82k.onrender.com';
+    baseUrl ??= 'https://nest-p82k.onrender.com/API/V1';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _UserApiService implements UserApiService {
     )
             .compose(
               _dio.options,
-              '/API/V1/signIn',
+              '/signIn',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -59,7 +59,7 @@ class _UserApiService implements UserApiService {
     )
             .compose(
               _dio.options,
-              '/API/V1/signUp',
+              '/signUp',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -85,7 +85,7 @@ class _UserApiService implements UserApiService {
     )
         .compose(
           _dio.options,
-          '/API/V1//removeUsers/${id}',
+          '/removeUsers/${id}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -113,7 +113,7 @@ class _UserApiService implements UserApiService {
     )
             .compose(
               _dio.options,
-              '/API/V1/update',
+              '/update',
               queryParameters: queryParameters,
               data: _data,
             )

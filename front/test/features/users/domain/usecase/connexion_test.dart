@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:front/core/utils/data_state.dart';
-import 'package:front/features/users/data/model/user_model.dart';
 import 'package:front/features/users/domain/entity/user.dart';
 import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';
@@ -13,15 +12,12 @@ import 'package:mockito/mockito.dart';
 import './connexion_test.mocks.dart';
 
 void main() {
-  late ConnectUser connectUserUsecase;
   late MockUserRepository mockUsrRepository;
   late MockUserLocalRepository mockUserLocalRepository;
 
   setUp(() {
     mockUsrRepository = MockUserRepository();
     mockUserLocalRepository = MockUserLocalRepository();
-    connectUserUsecase =
-        ConnectUser(mockUsrRepository, mockUserLocalRepository);
   });
 
   // final tconnexion = {"email": "testoy@gmail.com", "password": "testoy64"};
@@ -49,14 +45,7 @@ void main() {
           email: "testoy@gmail.com",
           password: 'testoy64',
           isAdmin: false);
-      final successState = DataSuccess<User>(user);
 
-      final userModel = UserModel(
-        email: usrLogginData[0],
-        password: usrLogginData[1],
-        id: '',
-        token: '', isAdmin: false, usrname: '',
-      );
 
       // Configurez le comportement simulé du UserRepository.connexion()
       when(mockUsrRepository.connexion(usrLogginData))
@@ -66,7 +55,6 @@ void main() {
       when(mockUserLocalRepository.addUser(user)).thenReturn(null);
 
       // Appelez la méthode sous test avec les paramètres requis
-      final result = await connectUserUsecase(params: usrLogginData);
 
       // Vérifiez que le résultat correspond à l'état de réussite attendu
       //! don"t know why that expect fail

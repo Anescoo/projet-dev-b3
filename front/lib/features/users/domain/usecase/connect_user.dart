@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:front/core/usecase.dart';
 import 'package:front/core/utils/data_state.dart';
-import 'package:front/features/users/data/datasource/remote/auth_user_api_service.dart';
-import 'package:front/features/users/data/model/user_model.dart';
 import 'package:front/features/users/domain/entity/user.dart';
 import 'package:front/features/users/domain/repository/user_local_repository.dart';
 import 'package:front/features/users/domain/repository/user_repository.dart';

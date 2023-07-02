@@ -5,10 +5,10 @@ part 'user_collection.g.dart';
 
 @Collection(ignore: {'favoriteProducts', 'props'})
 class UserCollection extends User {
-  final Id isarId = Isar.autoIncrement;
+  final Id isarId = 1;
   // List<int>? favorites; !FIX
 
-  UserCollection(
+  const UserCollection(
       {required super.token,
       required super.id,
       required super.usrname,

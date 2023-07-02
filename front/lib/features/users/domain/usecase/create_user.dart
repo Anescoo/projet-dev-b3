@@ -20,16 +20,15 @@ class CreateUser implements UseCase<DataState, List<String>> {
     DataState result;
     if (params != null) {
       result = await _userRepository.inscription(params);
-      if (result.runtimeType == DataSuccess) {
-        _userLocalRepository.addUser(result.data);
-        return Future.value(
-            DataSuccess(result.data) as FutureOr<DataState<User>>?);
+      if (result.runtimeType == DataSuccess<User>) {
+        User resUsr = result.data;
+        _userLocalRepository.addUser(resUsr);
+        return DataSuccess<User>(resUsr);
       } else if (result.runtimeType == DataFailed) {
-        return Future.value(
-            DataFailed(result.errorMessage));
+        return DataFailed(result.errorMessage);
       }
     }
     List<dynamic> nullParams = ["params argument is null"];
-    return Future.value(DataFailed(nullParams));
+    return DataFailed(nullParams);
   }
 }

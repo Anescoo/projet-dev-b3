@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front/core/constatns.dart';
 import 'package:front/features/users/presentation/pages/profile_page.dart';
 import 'package:front/features/content/presentation/pages/home_page.dart';
 import 'package:front/features/content/presentation/pages/order_page.dart';
@@ -8,7 +7,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
-import './../injection_container.dart';
 
 //! the bottom menu is not sync to the page when the user rollback. The page will change but not the state of the buttom menue
 class App extends StatelessWidget {
@@ -19,7 +17,7 @@ class App extends StatelessWidget {
       case 0:
         return const Home();
       case 1:
-        return const Product();
+        return  ProductPage();
       case 2:
         return const Order();
       case 3:

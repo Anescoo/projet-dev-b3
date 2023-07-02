@@ -8,8 +8,8 @@ class Filter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: backGround,
-      height: 100,
-      child: Text("filter"),
+      height: 20,
+      child: Text("filter",style: TextStyle(fontSize: 20),),
     );
   }
 }

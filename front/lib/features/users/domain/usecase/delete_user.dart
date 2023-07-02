@@ -1,15 +1,11 @@
 import 'package:front/core/usecase.dart';
 import 'package:front/features/users/domain/entity/user.dart';
-import 'package:front/features/users/domain/repository/user_local_repository.dart';
-import 'package:front/features/users/domain/repository/user_repository.dart';
 
 /// Input : the user that want to remove his account
 /// Role : remove the user account and delete his data
 class RemoveUser implements UseCase<void, User> {
-  final UserRepository _userRepository;
-  final UserLocalRepository _userLocalRepository;
 
-  RemoveUser(this._userRepository, this._userLocalRepository);
+  RemoveUser();
 
   @override
   Future<void> call({User? params}) async{

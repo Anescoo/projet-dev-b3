@@ -13,18 +13,18 @@ abstract class UserApiService {
   factory UserApiService(Dio dio) = _UserApiService;
 
   ///*usr { "email": "testoy@gmail.com","password": "testoy64"}
-  @POST("/API/V1/signIn")
+  @POST("/signIn")
   Future<UserModel> signIn(@Body() UserModel usr);
 
   ///* newUser {"email":"testoy@gmail.com","password": "testoy64","userName": "test","isAdmin":false}
-  @POST("/API/V1/signUp")
+  @POST("/signUp")
   Future<UserModel> signUp(@Body() UserModel newUser);
 
-  @DELETE("/API/V1//removeUsers/{id}")
+  @DELETE("/removeUsers/{id}")
   Future<String> removeUser(
       @Path() String id, @Header('Authorization') String token);
 
-  @PATCH("/API/V1/update")
+  @PATCH("/update")
   Future<UserModel> updateUser(
       @Body() UserModel usr, @Header('Authorization') String token);
 }

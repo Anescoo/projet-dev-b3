@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:front/client.dart';
 
 class AuthModel extends ChangeNotifier {
 
