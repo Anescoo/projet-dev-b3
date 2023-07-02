@@ -1,11 +1,14 @@
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
+import { idDto } from './../idDto';
+import { emailDto } from './../emailDto';
+import { CreateUserDto } from './dto/createUserDto';
 export declare class UsersController {
     private usersService;
     constructor(usersService: UsersService);
-    createUser(user: User): Promise<User>;
+    createUser(user: CreateUserDto): Promise<User>;
     getAllUsers(): Promise<User[]>;
-    getUserById(id: string): Promise<User | null>;
-    getUserByEmail(email: string): Promise<User | null>;
+    getUserById(id: idDto): Promise<User | null>;
+    getUserByEmail(email: emailDto): Promise<User | null>;
     removeUser(id: string): Promise<void>;
 }

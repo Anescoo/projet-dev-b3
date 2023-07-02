@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:front/app.dart';
-import 'package:get/get.dart';
-import 'features/auth/auth_page.dart';
-
-void main() {
-  runApp(const GetMaterialApp(home: MyApp()));
+import 'package:front/core/app_state.dart';
+import 'package:front/features/content/presentation/state/product_state.dart';
+import 'package:front/features/users/presentation/pages/sign_in_ui.dart';
+import 'package:provider/provider.dart';
+import 'injection_container.dart';
+void main() async {
+  await initializeDependencies();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => getIt.get<AppState>()),// the Appstate instance is available in all the app thks to Provider
+        ChangeNotifierProvider(create: (context) => getIt.get<ProductState>())
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,//!FIX
+      debugShowCheckedModeBanner: false,
       title: 'Shop App',
       theme: ThemeData(
         // This is the theme of your application.
@@ -29,7 +39,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
             .copyWith(background: Colors.grey),
       ),
-      home: const Authentication(),
+      home: SignInUi(getIt: getIt,),
       // home: const MyHomePage(title: 'Flutter Shop App'),
     );
   }

@@ -23,11 +23,21 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    signIn(signInDto) {
-        return this.authService.signIn(signInDto.email, signInDto.password);
+    async signIn(signInDto) {
+        const result = await this.authService.signIn(signInDto.email, signInDto.password);
+        return {
+            access_token: result.access_token,
+            user: result.user,
+            statusCode: common_1.HttpStatus.OK,
+        };
     }
-    signUp(signUpDto) {
-        return this.authService.signUp(signUpDto.email, signUpDto.password, signUpDto.userName, signUpDto.isAdmin);
+    async signUp(signUpDto) {
+        const result = await this.authService.signUp(signUpDto.email, signUpDto.password, signUpDto.userName, signUpDto.isAdmin);
+        return {
+            access_token: result.access_token,
+            user: result.user,
+            statusCode: common_1.HttpStatus.OK,
+        };
     }
     getProfile(req) {
         return req.user;
@@ -40,7 +50,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [signInDto_1.SignInDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signIn", null);
 __decorate([
     (0, public_decorator_1.Public)(),
@@ -49,7 +59,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [signUpDto_1.SignUpDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signUp", null);
 __decorate([
     (0, common_1.Get)('profile'),
