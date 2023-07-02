@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:front/core/collections/user_collection.dart' as _i7;
 import 'package:front/core/utils/data_state.dart' as _i2;
 import 'package:front/features/users/domain/entity/user.dart' as _i5;
 import 'package:front/features/users/domain/repository/user_local_repository.dart'
@@ -158,6 +159,15 @@ class MockUserLocalRepository extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i4.Future<_i7.UserCollection?> getUser() => (super.noSuchMethod(
+        Invocation.method(
+          #getUser,
+          [],
+        ),
+        returnValue: _i4.Future<_i7.UserCollection?>.value(),
+        returnValueForMissingStub: _i4.Future<_i7.UserCollection?>.value(),
+      ) as _i4.Future<_i7.UserCollection?>);
   @override
   _i4.Future<String> getToken() => (super.noSuchMethod(
         Invocation.method(

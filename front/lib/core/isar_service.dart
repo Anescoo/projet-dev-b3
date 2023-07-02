@@ -8,10 +8,14 @@ import 'package:permission_handler/permission_handler.dart';
 
 class IsarService {
   late Future<Isar> db;
+  String userToken = " ";
 
   IsarService() {
     db = openDb();
   }
+  String get getToken =>userToken;
+
+  set setToken(String token) => userToken = token;
 
   Future<Isar> openDb() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +28,7 @@ class IsarService {
         //! i dont have the permission to use the storage on android
         // Vérifier l'autorisation et demander si nécessaire
         if (await Permission.storage.request().isGranted) {
+                  print("using new instance");
           return await Isar.open(
             [UserCollectionSchema, ProductCollectionSchema],
             directory: dir.path,
@@ -34,6 +39,7 @@ class IsarService {
           throw Exception('Autorisation de stockage refusée');
         }
       } else {
+        print("using old instance");
         return await Isar.open(
           [UserCollectionSchema],
           directory: dir.path,

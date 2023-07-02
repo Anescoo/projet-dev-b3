@@ -6,5 +6,6 @@ abstract class ProductLocalRepository {
   List<Product> getProducts();
   List<Product> getProductsFilter(List<dynamic> params);
   void addToFavorite(Product product);
+  String getUserToken();
   // void addToCard
 }

@@ -12,8 +12,8 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(this._productApiService, this._productLocalService);
 
   @override
-  Future<DataState> getAllProducts(String usrToken) async {
-    List<ProductModel> res = await _productApiService.getAllProducts(usrToken);
+  Future<DataState> getAllProducts() async {
+    List<ProductModel> res = await _productApiService.getAllProducts();
     if (res == []) {
       return DataFailed(["no product fetch"]);
     }

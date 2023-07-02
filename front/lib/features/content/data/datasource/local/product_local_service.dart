@@ -6,6 +6,7 @@ import 'package:front/features/content/domain/repository/product_local_repositor
 class ProductLocalService implements ProductLocalRepository {
   IsarService isar;
   ProductLocalService(this.isar);
+
   @override
   void addProductList(List<Product> product) {
     // TODO: implement addProductList
@@ -26,6 +27,11 @@ class ProductLocalService implements ProductLocalRepository {
   List<Product> getProductsFilter(List params) {
     // TODO: implement getProductsFilter
     throw UnimplementedError();
+  }
+  
+  @override
+  String getUserToken() {
+   return isar.getToken;
   }
   
 }

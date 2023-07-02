@@ -5,12 +5,16 @@ import 'package:front/features/content/data/model/product_model.dart';
 import 'package:retrofit/http.dart';
 
 part 'product_api_service.g.dart';
+
 @RestApi(baseUrl: baseUrl)
 abstract class ProductApiService {
   factory ProductApiService(Dio dio) = _ProductApiService;
+  // factory ProductApiService(dio){
+  //   dio.options = BaseOptions()
+  // }
 
   @GET("/getAllProduct")
-  Future<List<ProductModel>> getAllProducts(@Header('Authorization') String token);
+  Future<List<ProductModel>> getAllProducts();
 
   // @GET("/getAllProduct")
   // Future<ProductModel> getSomeProducts
